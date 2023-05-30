@@ -38,13 +38,7 @@ while not roi_selected:
     cv2.imshow("Image", image)
     cv2.waitKey(1)
 
-# Extracting ROI
+# Extracting ROI into numpy array
 roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
-image_roi = cv2.imwrite("./src/res/video_1/color/frame60_roi.jpg")
-
-# Converting to numpy array
-roi_array = Image.open("./src/res/video_1/color/frame60_roi.jpg")
-print(type(roi_array))
-
-array = np.array(roi_array)
-print(array)
+print(roi)
+print(roi.shape)
