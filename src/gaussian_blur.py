@@ -19,7 +19,7 @@ while True:
     if ret:
         # If video is still left and the current frame is a multiple of the sampling rate, create an image
         if current_frame % sampling_rate == 0:
-            name = './res/video_1/gaussian_blur/frame' + str(current_frame) + '.jpg'
+            name = './video_1/gaussian_blur/frame' + str(current_frame) + '.jpg'
             print('Creating...' + name)
 
             # Convert frame to grayscale
