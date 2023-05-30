@@ -1,7 +1,7 @@
 import cv2
 
 #opening a video file and video capturing function
-video=cv2.VideoCapture('./res/video_1.mp4')
+video=cv2.VideoCapture('./src/res/video_1.mp4')
 
 #frame
 currentframe=0
@@ -11,7 +11,7 @@ while(True):
     ret,frame=video.read()
     if ret:
         #if video is still left continue creating images
-        name= './res/video/frame' + str(currentframe) + '.jpg'
+        name= './src/res/video/frame' + str(currentframe) + '.jpg'
         print('Creating...' + name)
 
         # saving the extracted images

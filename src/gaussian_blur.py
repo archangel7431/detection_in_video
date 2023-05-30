@@ -1,7 +1,7 @@
 import cv2
 
 # Opening a video file and video capturing function
-video = cv2.VideoCapture('./res/video_1.mp4')
+video = cv2.VideoCapture('./src/res/video_1.mp4')
 
 # Frame
 current_frame = 0
@@ -19,7 +19,7 @@ while True:
     if ret:
         # If video is still left and the current frame is a multiple of the sampling rate, create an image
         if current_frame % sampling_rate == 0:
-            name = './video_1/gaussian_blur/frame' + str(current_frame) + '.jpg'
+            name = './src/res/video_1/gaussian_blur/frame' + str(current_frame) + '.jpg'
             print('Creating...' + name)
 
             # Convert frame to grayscale

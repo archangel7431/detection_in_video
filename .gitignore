@@ -1,3 +1,3 @@
 # Ignore the env folder, files created by video_extraction
-venv/
-src/res/video_1/   
+venv/       
+src/res/video_1
