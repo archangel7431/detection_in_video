@@ -1,7 +1,5 @@
 # Importing necessary libraries
 import cv2
-import numpy as np
-from PIL import Image
 
 # Function to handle mouse events
 def select_roi(event, x, y, flag, param):
@@ -17,28 +15,32 @@ def select_roi(event, x, y, flag, param):
         cv2.rectangle(image, roi_pts[0], roi_pts[1], (0, 255, 0), 2)
         cv2.imshow("Image", image)
 
+def roi_array(path):
+    # Read the image
+    global image, roi_selected,roi_pts
+    image = cv2.imread(path)
 
-# Read the image
-image = cv2.imread("./src/res/video_1/color/frame60.jpg")
-
-# Creating a window to display the image
-cv2.namedWindow("Image")
-cv2.imshow("Image", image)
-
-
-# Initialize ROI variables
-roi_pts = []
-roi_selected = False
-
-# Call the function to handle mouse events
-cv2.setMouseCallback("Image", select_roi)
-
-
-while not roi_selected:
+    # Creating a window to display the image
+    cv2.namedWindow("Image")
     cv2.imshow("Image", image)
-    cv2.waitKey(1)
 
-# Extracting ROI into numpy array
-roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
-print(roi)
-print(roi.shape)
+    # Initialize ROI variables
+    roi_pts = []
+    roi_selected = False
+
+    # Call the function to handle mouse events
+    cv2.setMouseCallback("Image", select_roi)
+
+    # Selecting roi using mouse
+    while not roi_selected:
+        cv2.imshow("Image", image)
+        cv2.waitKey(1)
+
+    # Extracting ROI into numpy array
+    roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
+    return roi
+
+
+if __name__ == "__main__":
+    roi = roi_array(path="./src/res/video_1/color/frame60.jpg")
+    print(roi)
