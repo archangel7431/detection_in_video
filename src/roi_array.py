@@ -12,8 +12,11 @@ def select_roi(event, x, y, flag, param):
     elif event == cv2.EVENT_LBUTTONUP:
         roi_pts.append((x,y))
         roi_selected = True
+
+        # Draw the selected ROI rectangle
         cv2.rectangle(image, roi_pts[0], roi_pts[1], (0, 255, 0), 2)
-        cv2.imshow("Image", image)
+        cv2.imshow("Select ROI", image)
+    
 
 def roi_array(path):
     # Read the image
@@ -38,9 +41,10 @@ def roi_array(path):
 
     # Extracting ROI into numpy array
     roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
-    return roi
+
+    return roi_pts
 
 
 if __name__ == "__main__":
-    roi = roi_array(path="./src/res/video_1/color/frame60.jpg")
+    roi = roi_array(path="./src/res/video_1/gaussian_blur/frame60.jpg")
     print(roi)
