@@ -40,7 +40,7 @@ def roi_array(path):
         cv2.waitKey(1)
 
     # Extracting ROI into numpy array
-    roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
+    # roi = image[roi_pts[0][1]:roi_pts[1][1], roi_pts[0][0]:roi_pts[1][0]]
 
     return roi_pts
 
