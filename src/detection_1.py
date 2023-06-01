@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 from roi_coordinates import coordinates_and_dimensions
 from roi_array import roi_array
+from pre_process import pre_processing
+from find_contours import find_contours
 
 
 # From path of a frame, we're finding the coordinates and dimensions of ROI(Region of Interest)
@@ -13,7 +15,8 @@ roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi)
 previous_frame = None
 
 # Opening video file
-cap = cv2.VideoCapture("./src/res/video_1.mp4")  
+path = "./src/res/video_1.mp4"
+cap = cv2.VideoCapture(path)
 
 
 while True:
@@ -23,21 +26,15 @@ while True:
     # If there is no frame to read anymore, then break
     if not ret:
         break
-
-    # Crop the frame to the ROI
-    roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
-
-    # Convert the ROI to grayscale
-    gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-
-    # Apply Gaussian blur to reduce noise
-    blurred_roi = cv2.GaussianBlur(gray_roi, (21, 21), 0)
+    
+    blurred_roi = pre_processing(frame, roi, roi_x, roi_y, roi_height, roi_width)
 
     # Initialize previous_frame for the first frame
     if previous_frame is None:
         previous_frame = blurred_roi
         continue
-
+    
+    #contours = find_contours(previous_frame, blurred_roi)
     # Calculate the absolute difference between the current and previous frames
     frame_delta = cv2.absdiff(previous_frame, blurred_roi)
 
