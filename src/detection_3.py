@@ -47,7 +47,7 @@ while True:
     frame_delta = cv2.absdiff(previous_frame, blurred_roi)
 
     # Apply a threshold to extract regions of significant motion
-    thresh = cv2.threshold(frame_delta, 50, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frame_delta, 70, 255, cv2.THRESH_BINARY)[1]
 
     # Apply morphological operations to remove noise and fill holes
     thresh = cv2.dilate(thresh, None, iterations=2)
