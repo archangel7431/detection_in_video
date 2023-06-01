@@ -40,7 +40,7 @@ while True:
     frame_delta = cv2.absdiff(previous_frame, blurred_roi)
 
     # Apply a threshold to extract regions of significant motion
-    thresh = cv2.threshold(frame_delta, 35, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frame_delta, 75, 255, cv2.THRESH_BINARY)[1]
 
     # Apply morphological operations to remove noise and fill holes
     thresh = cv2.dilate(thresh, None, iterations=2)
@@ -64,12 +64,14 @@ while True:
         current_area = w * h
 
         # Check if there is motion inside the bounding rectangle
-        if previous_area is None or current_area > previous_area:
+        if previous_area is None:
             # Update the previous area
             previous_area = current_area
-
-            # Draw a bounding box around the region of motion
-            cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        
+        if current_area > previous_area:
+            break
+        # Draw a bounding box around the region of motion
+        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Show the resulting frame
     cv2.imshow("Motion Detection", frame)
