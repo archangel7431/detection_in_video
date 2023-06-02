@@ -4,10 +4,9 @@ from roi_coordinates import coordinates_and_dimensions
 from roi_array import roi_array
 import pygame
 
+# Initialising pygame to play alarm.wav
 pygame.mixer.init()
-
 pygame.mixer.music.load("alarm.wav")
-
 pygame.mixer.music.set_volume(50.0)
 
 
