@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 from roi_coordinates import coordinates_and_dimensions
 from roi_array import roi_array
 import pygame
