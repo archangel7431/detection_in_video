@@ -14,7 +14,7 @@ def select_roi(event, x, y, flags, param):
 
 
 
-def roi_array(source_choice : str, video_file = None):
+def roi_array(source_choice : str,):
     global roi_selected, roi_bottom_right, roi_top_left
 
     # Initialize variables
