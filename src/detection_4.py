@@ -2,35 +2,55 @@ import cv2
 from roi_coordinates import coordinates_and_dimensions
 from roi_array import roi_array
 import pygame
+import argparse
+from imutils.video import VideoStream 
+import time
+import numpy as np
 
 # Initialising pygame to play alarm.wav
 pygame.mixer.init()
 pygame.mixer.music.load("alarm.wav")
 pygame.mixer.music.set_volume(50.0)
 
+# Construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-v", "--video", help = "path to the video file")
+ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
+args = vars(ap.parse_args())
 
-# From path of a frame, we're finding the coordinates and dimensions of ROI(Region of Interest)
-roi = roi_array("./src/res/video_1/gaussian_blur/frame180.jpg")
-roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi)
+# if the video argument is None, then we are reading from webcam
+if args.get("video", None) is None:
+    vs = VideoStream(src=0).start()
+    time.sleep(2.0)
+
+# Otherwise, we are reading from a video file
+else:
+    vs= cv2.VideoCapture(args["video"])
+
+    # From path of a frame, we're finding the coordinates and dimensions of ROI(Region of Interest)
+    path = "./src/res/video_1/gauusian_blur/frame60.jpg"
+    roi = roi_array("./src/res/video_1/gaussian_blur/frame180.jpg")
+    roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi)
+
 
 # Initializing previous frame
 previous_frame = None
-
-# Opening video file
-cap = cv2.VideoCapture("./src/res/video_1.mp4")  
+  
 
 while True:
-    # Reading the VideoObject
-    ret, frame = cap.read()
-    print(type(frame))
+    if args.get("video", None) is None:
+        # Reading the VideoObject
+        frame = vs.read()
+        roi = frame
+    else:
+        ret, frame = vs.read()
+         # If there is no frame to read anymore, then break
+        if not ret:
+            break
+        # Crop the frame to the ROI
+        roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width] 
 
-    # If there is no frame to read anymore, then break
-    if not ret:
-        break
-
-    # Crop the frame to the ROI
-    roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
-
+    
     # Convert the ROI to grayscale
     gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
@@ -88,5 +108,5 @@ while True:
         break
 
 # Release the video capture and close windows
-cap.release()
+vs.stop() if args.get("video", None) is None else vs.release()
 cv2.destroyAllWindows()

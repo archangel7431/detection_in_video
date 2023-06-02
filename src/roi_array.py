@@ -18,7 +18,7 @@ def select_roi(event, x, y, flag, param):
         cv2.imshow("Select ROI", image)
     
 
-def roi_array(path):
+def roi_array(path:str):
     # Read the image
     global image, roi_selected,roi_pts
     image = cv2.imread(path)
@@ -46,5 +46,6 @@ def roi_array(path):
 
 
 if __name__ == "__main__":
-    roi = roi_array(path="./src/res/video_1/gaussian_blur/frame60.jpg")
+    path = "./src/webcam/gaussian_blur/frame0.jpg"
+    roi = roi_array(path)
     print(roi)
