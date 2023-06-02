@@ -3,6 +3,13 @@ import cv2
 import numpy as np
 from roi_coordinates import coordinates_and_dimensions
 from roi_array import roi_array
+import pygame
+
+pygame.mixer.init()
+
+pygame.mixer.music.load("alarm.wav")
+
+pygame.mixer.music.set_volume(50.0)
 
 # From path of a frame, we're finding the coordinates and dimensions of ROI(Region of Interest)
 roi = roi_array("./src/res/video_1/gaussian_blur/frame180.jpg")
@@ -31,7 +38,7 @@ while True:
     # Apply Gaussian blur to reduce noise
     blurred_roi = cv2.GaussianBlur(gray_roi, (21, 21), 0)
 
-    # Initialize previous_frame for the first frame
+ # Initialize previous_frame for the first frame
     if previous_frame is None:
         previous_frame = blurred_roi
         continue
@@ -40,7 +47,7 @@ while True:
     frame_delta = cv2.absdiff(previous_frame, blurred_roi)
 
     # Apply a threshold to extract regions of significant motion
-    thresh = cv2.threshold(frame_delta, 75, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frame_delta, 50, 255, cv2.THRESH_BINARY)[1]
 
     # Apply morphological operations to remove noise and fill holes
     thresh = cv2.dilate(thresh, None, iterations=2)
@@ -59,17 +66,18 @@ while True:
         # Calculate the bounding rectangle of the contour
         (x, y, w, h) = cv2.boundingRect(contour)
         
-        
         # Calculate the area of the contour
         current_area = w * h
 
         # Check if there is motion inside the bounding rectangle
-        if previous_area is None:
+    if previous_area is None:
             # Update the previous area
-            previous_area = current_area
+        previous_area = current_area
         
         if current_area > previous_area:
+            pygame.mixer.music.play()
             break
+
         # Draw a bounding box around the region of motion
         cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
 

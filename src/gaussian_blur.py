@@ -8,7 +8,7 @@ def gaussian_blur(path:str):
     current_frame = 0
 
     # Frame sampling rate
-    sampling_rate = 60 # Extract every 60th frame
+    sampling_rate = 60  # Extract every 60th frame
 
     # Gaussian blur kernel size
     kernel_size = (101, 51)  # Adjust the kernel size as needed
