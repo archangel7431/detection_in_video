@@ -12,37 +12,58 @@ def select_roi(event, x, y, flags, param):
         roi_bottom_right = (x, y)
         roi_selected = True
 
-# Initialize variables
-roi_top_left = None
-roi_bottom_right = None
-roi_selected = False
 
-# Start capturing video from the webcam
-video_capture = cv2.VideoCapture(0)  # Replace 0 with the index of your webcam if you have multiple cameras
 
-# Create a window and bind the mouse callback function
-cv2.namedWindow("Select ROI")
-cv2.setMouseCallback("Select ROI", select_roi)
+def roi_array(source_choice : str, video_file = None):
+    global roi_selected, roi_bottom_right, roi_top_left
 
-while True:
-    # Read the current frame from the video capture
-    ret, frame = video_capture.read()
+    # Initialize variables
+    roi_top_left = None
+    roi_bottom_right = None
+    roi_selected = False
 
-    # Display the frame
-    cv2.imshow("Select ROI", frame)
 
-    # Break the loop if ROI has been selected
-    if roi_selected:
-        break
+    if source_choice == "1":
+        # Start capturing video from the webcam
+        video_capture = cv2.VideoCapture(0)
+    
+    elif source_choice == "2":
+        video_file = input("Enter the video file path: ")
+        video_capture = cv2.VideoCapture(video_file)
+    
+    else:
+        print("Invalid choice. Exiting...")
+        exit()
 
-    # Wait for the 'q' key to exit the loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # Create a window and bind the mouse callback function
+    cv2.namedWindow("Select ROI")
+    cv2.setMouseCallback("Select ROI", select_roi)
 
-# Release the video capture and close all windows
-video_capture.release()
-cv2.destroyAllWindows()
+    while True:
+        # Read the current frame from the video capture
+        ret, frame = video_capture.read()
 
-# Print the selected ROI coordinates
-print("ROI Top Left: ", roi_top_left)
-print("ROI Bottom Right: ", roi_bottom_right)
+        if not ret:
+            break
+
+        # Display the frame
+        cv2.imshow("Select ROI", frame)
+
+        # Break the loop if ROI has been selected
+        if roi_selected:
+            break
+
+        # Wait for the 'q' key to exit the loop
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    # Release the video capture and close all windows
+    video_capture.release()
+    cv2.destroyAllWindows()
+
+    return [roi_top_left, roi_bottom_right]
+
+if __name__ == "__main__":
+    source_choice = input("Enter the source_choice(1 for webcam and 2 for video file): ")
+    roi_pts = roi_array(source_choice=source_choice)
+    print(roi_pts)
