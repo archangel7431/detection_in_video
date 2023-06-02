@@ -18,7 +18,8 @@ previous_frame = None
 path = "./src/res/video_1.mp4"
 cap = cv2.VideoCapture(path)
 
-
+i = 0
+j = 0
 while True:
     #Reading the VideoObject
     ret, frame = cap.read()
@@ -29,43 +30,38 @@ while True:
     
     blurred_roi = pre_processing(frame, roi, roi_x, roi_y, roi_height, roi_width)
 
+    print(f"Blurred_roi is obtained {i}")
+    i += 1
+
     # Initialize previous_frame for the first frame
     if previous_frame is None:
         previous_frame = blurred_roi
         continue
     
-    #contours = find_contours(previous_frame, blurred_roi)
-    # Calculate the absolute difference between the current and previous frames
-    frame_delta = cv2.absdiff(previous_frame, blurred_roi)
+    contours = find_contours(previous_frame, blurred_roi)
 
-    # Apply a threshold to extract regions of significant motion
-    thresh = cv2.threshold(frame_delta, 35, 255, cv2.THRESH_BINARY)[1]
-
-    # Apply morphological operations to remove noise and fill holes
-    thresh = cv2.dilate(thresh, None, iterations=2)
-    thresh = cv2.erode(thresh, None, iterations=1)
-
-    # Find contours of the thresholded image
-    contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    print(f"find contours is working {j}")
+    j += 1
 
     previous_area = None
 
     # Iterate over the contours and filter out small contours
     for contour in contours:
-        if cv2.contourArea(contour) < 5000:
+        if cv2.contourArea(contour) < 10000:
             continue
         
         # Draw a bounding box around the region of motion
         (x, y, w, h) = cv2.boundingRect(contour)
-        if previous_area is None:
-            previous_area = w * h
-            continue
-        current_area = w * h
-        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-        #if (current_area > previous_area):
-            #break
-    
+        current_area = w * h
+
+        if previous_area is None:
+            previous_area = current_area
+        
+        if current_area > previous_area:
+            break
+        roi = np.array(roi)
+        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)  
 
     # Show the resulting frame
     cv2.imshow("Motion Detection", frame)
