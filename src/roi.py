@@ -42,6 +42,7 @@ def roi():
     # Initialize variables for motion detection
     previous_frame = None
     motion_detected = False
+
     while True:
         # Read the current frame from the video capture
         ret, frame = video_capture.read()

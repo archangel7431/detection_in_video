@@ -1,6 +1,6 @@
 import cv2
 from roi_coordinates import coordinates_and_dimensions
-from roi_array import roi_array
+from roi_webcam import roi_array
 import pygame
 
 # Initialising pygame to play alarm.wav
@@ -17,7 +17,7 @@ roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi)
 previous_frame = None
 
 # Opening video file
-cap = cv2.VideoCapture("./src/res/video_1.mp4")  
+cap = cv2.VideoCapture(0)  #"./src/res/video_1.mp4"
 
 while True:
     # Reading the VideoObject
