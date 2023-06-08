@@ -1,6 +1,4 @@
 # Import the required libraries
-import cv2
-import numpy as np
 from roi import roi
 
 def roi_corner_coordinates(roi):
@@ -11,14 +9,12 @@ def roi_corner_coordinates(roi):
     
     return left_top_corner, left_bottom_corner, right_bottom_corner, right_top_corner
 
-def coordinates_and_dimensions(roi):
-    roi_x = roi[0][0]
-    roi_y = roi[0][1]
-    roi_width = abs(roi[0][0] - roi[1][0])
-    roi_height = abs(roi[0][1] - roi[1][1])
+
+def coordinates_and_dimensions():
+    roi_1 = roi()
+    roi_x = roi_1[0][0]
+    roi_y = roi_1[0][1]
+    roi_width = abs(roi_1[0][0] - roi_1[1][0])
+    roi_height = abs(roi_1[0][1] - roi_1[1][1])
 
     return roi_x, roi_y, roi_width, roi_height
-
-if __name__ == "__main__":
-    roi = roi()
-    print(coordinates_and_dimensions(roi))

@@ -13,7 +13,7 @@ def select_roi(event, x, y, flags, param):
         roi_selected = True
     
 
-def roi():
+def roi_1(source_choice):
     global roi_top_left, roi_bottom_right, roi_selected
 
     # Initialize variables
@@ -21,8 +21,7 @@ def roi():
     roi_bottom_right = None
     roi_selected = False
 
-    # Prompt the user to choose between webcam and video file
-    source_choice = input("Select the source: (1) Webcam (2) Video File: ")
+    
     if source_choice == "1":
         # Start capturing video from the webcam
         video_capture = cv2.VideoCapture(0)  # Replace 0 with the index of your webcam if you have multiple cameras

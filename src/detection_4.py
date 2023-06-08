@@ -5,7 +5,7 @@ import pygame
 import argparse
 from imutils.video import VideoStream 
 import time
-import numpy as np
+
 
 # Initialising pygame to play alarm.wav
 pygame.mixer.init()

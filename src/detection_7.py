@@ -47,7 +47,10 @@ while True:
 
     # Crop the frame to the ROI
     roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
-   
+       
+    # Displaying rectangle representing roi in the frame
+    cv2.rectangle(frame, (roi_x, roi_y), (roi_x + roi_width, roi_y + roi_height), (0, 255, 0), 2)
+
    # Convert the ROI to grayscale
     gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
@@ -63,7 +66,7 @@ while True:
     frame_delta = cv2.absdiff(previous_frame, blurred_roi)
 
     # Apply a threshold to extract regions of significant motion
-    thresh = cv2.threshold(frame_delta, 75, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frame_delta, 85, 255, cv2.THRESH_BINARY)[1]
 
     # Apply morphological operations to remove noise and fill holes
     thresh = cv2.dilate(thresh, None, iterations=2)
@@ -76,12 +79,11 @@ while True:
 
     # Iterate over the contours and filter out small contours
     for contour in contours:
-        if cv2.contourArea(contour) < 5000:
+        if cv2.contourArea(contour) < 3000:
             continue
 
         # Calculate the bounding rectangle of the contour
         (x, y, w, h) = cv2.boundingRect(contour)
-        
         
         # Calculate the area of the contour
         current_area = w * h
@@ -94,7 +96,7 @@ while True:
         if current_area > previous_area:
             break
         # Draw a bounding box around the region of motion
-        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 0, 255), 2)
         pygame.mixer.music.play()
 
     # Show the resulting frame

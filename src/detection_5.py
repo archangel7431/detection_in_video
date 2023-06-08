@@ -30,13 +30,12 @@ if args.get("video", None) is None:
 else:
     vs= cv2.VideoCapture(args["video"])
     
-    # Source choice is 2 - from video file
     source_choice = "2"
-    
 
 # From path of a frame, we're finding the coordinates and dimensions of ROI(Region of Interest)
 roi = roi_array(source_choice=source_choice)
-roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi)
+roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi=roi)
+    
 
 # Initializing previous frame
 previous_frame = None
@@ -49,10 +48,14 @@ while True:
 
     else:
         ret, frame = vs.read()
-         # If there is no frame to read anymore, then break
+
+        # If there is no frame to read anymore, then break
         if not ret:
             break
-        
+
+    print(type(frame))
+    break
+    
     # Crop the frame to the ROI
     roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width] 
 
