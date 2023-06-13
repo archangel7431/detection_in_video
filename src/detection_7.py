@@ -1,6 +1,5 @@
 import cv2
 from roi_coordinates import coordinates_and_dimensions
-from roi import roi
 import pygame
 import argparse
 from imutils.video import VideoStream 
@@ -18,8 +17,7 @@ ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area si
 args = vars(ap.parse_args())
 
 # Get coordinates and dimensions of ROI
-roi = roi()
-roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions(roi=roi)
+roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions()
 
 
 # if the video argument is None, then we are reading from webcam

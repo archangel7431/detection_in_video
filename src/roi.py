@@ -1,4 +1,5 @@
 import cv2
+import preparation
 
 # Callback function for mouse events
 def select_roi(event, x, y, flags, param):
@@ -22,19 +23,13 @@ def roi():
     roi_selected = False
 
     # Prompt the user to choose between webcam and video file
-    source_choice = input("Select the source: (1) Webcam (2) Video File: ")
-    if source_choice == "1":
+    source_choice = str(preparation.argument_parser())
+    if source_choice == "webcam":
         # Start capturing video from the webcam
         video_capture = cv2.VideoCapture(0)  # Replace 0 with the index of your webcam if you have multiple cameras
 
-    elif source_choice == "2":
-        # Prompt the user for the video file path
-        video_file = input("Enter the video file path: ")
-        video_capture = cv2.VideoCapture(video_file)
-
     else:
-        print("Invalid choice. Exiting.")
-        exit()
+        video_capture = cv2.VideoCapture(source_choice)
 
     # Create a window and bind the mouse callback function
     cv2.namedWindow("Select ROI")
@@ -61,3 +56,7 @@ def roi():
     cv2.destroyAllWindows()
 
     return [roi_top_left, roi_bottom_right]
+
+
+if __name__ == "__main__":
+    print(roi())

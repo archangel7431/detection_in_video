@@ -8,9 +8,11 @@ roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions()
 
 print("Region of interest selected.")
 
+# Initialize pygame
+preparation.init_pygame("alarm.wav")
+
 # Get VideoObject
 args = preparation.argument_parser()
 vs = preparation.reading_file(args=args)
 
-# Initialize pygame
-preparation.init_pygame()
+print("completed")
