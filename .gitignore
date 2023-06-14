@@ -1,3 +1,4 @@
 # Ignore the env folder, files created by video_extraction
-venv/       
+venv      
 src/res/video_1
+./src/__pycache__
