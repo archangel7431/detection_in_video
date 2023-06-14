@@ -1,5 +1,52 @@
 import preparation
+import cv2
 from roi_coordinates import coordinates_and_dimensions
+
+def motion_detection():
+    args = preparation.argument_parser()
+
+    # Getting ROI and getting video object
+    vs, roi_x, roi_y, roi_width, roi_height = roi_and_getting_object()
+
+    # Initializing pygame with tone
+    preparation.init_pygame("alarm.wav")
+
+    # Initializing previous frame
+    previous_frame = None
+
+    while True:
+        frame = preparation.getting_frame(vs)
+        
+        # Getting ROI ready
+        kernel = (21,21)
+        blurred_roi = preparation.getting_roi_ready(frame, roi_x, roi_y, roi_width, roi_height, kernel)
+
+        # Initialize previous_frame for the first frame
+        if previous_frame is None:
+            previous_frame = blurred_roi
+            continue
+
+        thresh1 = 85
+        thresh2 = 255
+        contours, _ = preparation.finding_contour(previous_frame, blurred_roi, thresh1, thresh2)
+
+        # Finding motion in ROI
+        previous_area = None
+        min_area = 500
+        roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
+
+        preparation.contour(previous_area, contours, min_area, roi)
+
+        # Show the resulting frame
+        cv2.imshow("Motion Detection", frame)
+        
+        # Break the loop on 'q' key press
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    # Release the video capture and close windows
+    vs.stop() if args == "webcam" else vs.release()
+    cv2.destroyAllWindows()
+    print("Completed, for now")
 
 
 def roi_and_getting_object():
@@ -10,33 +57,12 @@ def roi_and_getting_object():
 
     print("Region of interest selected.")
 
-    # Initialize pygame
-    preparation.init_pygame("alarm.wav")
-
     # Get VideoObject
     args = preparation.argument_parser()
     vs = preparation.reading_file(args=args)
 
-    print("completed")
-    return vs
+    return vs, roi_x, roi_y, roi_width, roi_height
 
-def looping_through_frames(vs):
-    # Initializing previous frame
-    previous_frame = None
-
-    while True:
-        if str(type(vs)) == "<class 'imutils.video.webcamvideostream.WebcamVideoStream'>":
-            frame = vs.read()
-        elif str(type(vs)) == "<class 'cv2.VideoCapture'>":
-            ret, frame = vs.read()
-            # If there is no frame to read anymore, then break
-            if not ret:
-                break
-
-        print(type(frame))
-        
-        break
 
 if __name__ == "__main__":
-    vs = roi_and_getting_object()
-    looping_through_frames(vs=vs)
+    motion_detection()

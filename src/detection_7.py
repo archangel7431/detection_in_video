@@ -29,8 +29,6 @@ if args.get("video", None) is None:
 else:
     vs= cv2.VideoCapture(args["video"])
 
-# Initializing previous frame
-previous_frame = None
 
 while True:
     if args.get("video", None) is None:
@@ -39,7 +37,7 @@ while True:
 
     else:
         ret, frame = vs.read()
-         # If there is no frame to read anymore, then break
+        # If there is no frame to read anymore, then break
         if not ret:
             break
 
@@ -103,6 +101,7 @@ while True:
     # Break the loop on 'q' key press
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+    
 
 # Release the video capture and close windows
 vs.stop() if args.get("video", None) is None else vs.release()

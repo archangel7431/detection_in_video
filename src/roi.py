@@ -1,5 +1,6 @@
 import cv2
-import preparation
+import argparse
+import os
 
 # Callback function for mouse events
 def select_roi(event, x, y, flags, param):
@@ -14,6 +15,14 @@ def select_roi(event, x, y, flags, param):
         roi_selected = True
     
 
+def argument_parser():
+    # Construct the argument parser and parse the arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("mode", help = "Type 'webcam' for webcam or if the source is a video file, write its path.")
+    args = parser.parse_args()
+
+    return args.mode
+
 def roi():
     global roi_top_left, roi_bottom_right, roi_selected
 
@@ -23,13 +32,19 @@ def roi():
     roi_selected = False
 
     # Prompt the user to choose between webcam and video file
-    source_choice = str(preparation.argument_parser())
+    args = argument_parser()
+    source_choice = str(args)
     if source_choice == "webcam":
         # Start capturing video from the webcam
         video_capture = cv2.VideoCapture(0)  # Replace 0 with the index of your webcam if you have multiple cameras
 
     else:
-        video_capture = cv2.VideoCapture(source_choice)
+        if os.path.exists(args):
+            video_capture = cv2.VideoCapture(source_choice)
+        else:
+            print(f"Enter a valid path on this computer. \
+                  This program is running from {os.path.abspath(__file__)}. \
+                  Try writing a path relative to the program.")
 
     # Create a window and bind the mouse callback function
     cv2.namedWindow("Select ROI")
