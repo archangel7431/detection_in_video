@@ -28,9 +28,18 @@
     <div class="dropdown">
         <button class="dropbtn">Upload File</button>
         <div class="dropdown-content">
-            <a href="#">From Device</a>
-            <a href="#">Option 2</a>
-            <a href="#">Option 3</a>
+            <a href="#" class="from-device-option">
+                <i class="fas fa-desktop"></i>
+                From Device
+            </a>
+            <a href="#" class="google-drive-option">
+                <i class="fab fa-google-drive"></i>
+                Google Drive
+            </a>
+            <a href="#" class="drop-box-option">
+                <i class="fab fa-dropbox"></i>
+                Dropbox
+            </a>
         </div>
     </div>
 
@@ -39,21 +48,51 @@
     <div class="dropdown">
         <button class="dropbtn">Use Webcam</button>
     </div>
-    
+
     <div class="icon-list">
         <div class="icon-item">
-            <i class="fas fa-camera large-icon"></i>
-            <span>enter text here</span>
+            <i class="fas fa-globe"></i>
+            <span class="heading">Online Tool</span>
+            <span class="subheading">The motion detector is completely online </span>
+            <span class="subheading">which means that you don't have to download</span>
+            <span class="subheading">and install anything to your device.</span>
+        </div>
+
+        <div class="icon-item">
+            <i class="fas fa-star"></i>
+            <span class="heading">Simple Interface</span>
+            <span class="subheading">Don't worry, the tool is really intuitive,</span>
+            <span class="subheading">you don't even need to read a manual to use it!</span>
         </div>
         <div class="icon-item">
             <i class="fas fa-shield-alt"></i>
-            <span>enter text here</span>
-        </div>
-        <div class="icon-item">
-            <i class="fas fa-video"></i>
-            <span>enter text here</span>
+            <span class="heading">Secure Encryption</span>
+            <span class="subheading">You're the only one who has access to your </span>
+            <span class="subheading"> files because all the communications are </span>
+            <span class="subheading">performed via secure channels.</span>
         </div>
     </div>
+    <hr>
+    <footer>
+
+        <li item="bottom"><a href="#">Privacy Policy</a></li>
+        <li item="bottom"><a href="#">Terms of Service</a></li>
+        <li item="bottom"><a href="#">Copyright
+                © 2023 MotionAlert. All Rights Reserved.</a></li>
+
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.from-device-option').addEventListener('click', function() {
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.addEventListener('change', function(e) {
+                var file = e.target.files[0];
+                console.log(file);
+            });
+            fileInput.click();
+        });
+    </script>
 
 
 
@@ -61,7 +100,6 @@
 
 
 
-    </article>
 </body>
 
 </html>

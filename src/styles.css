@@ -3,9 +3,12 @@ nav {
     padding: 10px;
     margin-top: -8px;
     margin-left: -8px;
-    margin-right: -7px;
-    font-weight: 100;
+    margin-right: -8px;
+    margin-bottom: 10px;
+    height: 45px;
+    font-weight: 10;
     background-color: rgb(13, 18, 43);
+    background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
     
 }
 
@@ -22,14 +25,17 @@ li {
 }
 
 a {
-    color: white;
+    color: rgb(13, 18, 43);
     text-decoration: none;
     padding: 10px 20px;
-    font-weight: bold;
+    font-weight: 10;
 }
 
 a:hover {
-    background-color: rgb(150, 154, 174);
+    color:whitesmoke;
+    background-color: rgb(13, 18, 43);
+    width: 200px;
+    transition: width 0.1s ease;
 }
 
 h1 {
@@ -119,13 +125,8 @@ body {
     background-color: rgb(13, 18, 43);
 }
 
-.icon i {
-    /* margin-top: 8px; */
-    font-size: 16px;
-    /* margin-top: 50px; */
-    color: rgb(13, 18, 43);
-    /* margin-left: 250px; */
-    /* margin-right: 150px; */
+ i {
+   color: rgb(13, 18, 43); 
 }
 
 h3 p {
@@ -147,7 +148,7 @@ p {
 .icon-list {
     display: flex;
     justify-content: center;
-    gap: 20em;
+    gap: 15em;
     margin-top: 5em;
     color: rgb(13, 18, 43)
 }
@@ -177,6 +178,34 @@ span{
 h3{
     color: black;
     text-align: center;
+}
+.subheading{
+    color: rgb(79, 79, 79);
+    text-align: center;
+}
+.heading{
+    font-weight: bold;
+    margin-top: 1em;
+}
+hr{
+    margin-top: 5em;
+    gap:2em;
+}
+footer {
+    
+    color: rgb(13, 18, 43);
+    text-align: center;
+    padding: 10px;
+}
+
+footer a {
+    color: rgb(13, 18, 43);
+    text-decoration: none;
+    font-size: small;
+}
+
+footer a:hover {
+    color: #fff;
 }
 
 
