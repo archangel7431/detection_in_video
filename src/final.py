@@ -2,44 +2,36 @@ import preparation
 import cv2
 from roi_coordinates import coordinates_and_dimensions
 
+
 def motion_detection():
     args = preparation.argument_parser()
 
+    fgbg = cv2.createBackgroundSubtractorMOG2()
+
     # Getting ROI and getting video object
-    vs, roi_x, roi_y, roi_width, roi_height = roi_and_getting_object()
+    roi_wanted = bool(
+        input("If you don't want ROI, press ENTER. If you want ROI, write 'True': "))
+    vs, coordinates = roi_and_getting_object(roi_wanted)
 
     # Initializing pygame with tone
     preparation.init_pygame("alarm.wav")
 
-    # Initializing previous frame
-    previous_frame = None
-
     while True:
         frame = preparation.getting_frame(vs)
-        
-        # Getting ROI ready
-        kernel = (21,21)
-        blurred_roi = preparation.getting_roi_ready(frame, roi_x, roi_y, roi_width, roi_height, kernel)
+        roi = preparation.getting_roi_ready(frame, roi_wanted, coordinates)
+        fgmask = fgbg.apply(roi)
 
-        # Initialize previous_frame for the first frame
-        if previous_frame is None:
-            previous_frame = blurred_roi
-            continue
-
-        thresh1 = 85
-        thresh2 = 255
-        contours, _ = preparation.finding_contour(previous_frame, blurred_roi, thresh1, thresh2)
+        thresh = 85
+        contours = preparation.finding_contour(fgmask.copy(), thresh)
 
         # Finding motion in ROI
-        previous_area = None
         min_area = 500
-        roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
 
-        preparation.contour(previous_area, contours, min_area, roi)
+        preparation.contour(contours, min_area, roi=roi)
 
         # Show the resulting frame
         cv2.imshow("Motion Detection", frame)
-        
+
         # Break the loop on 'q' key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -49,19 +41,28 @@ def motion_detection():
     print("Completed, for now")
 
 
-def roi_and_getting_object():
-    print("Select a region of interest using mouse.")
+def roi_and_getting_object(roi_wanted):
+    if not roi_wanted:
+        # Get VideoObject
+        args = preparation.argument_parser()
+        vs = preparation.reading_file(args=args)
+        coordinates = ()
 
-    # Get coordinates of ROI
-    roi_x, roi_y, roi_width, roi_height = coordinates_and_dimensions()
+        return vs, coordinates
 
-    print("Region of interest selected.")
+    else:
+        print("Select a region of interest using mouse.")
 
-    # Get VideoObject
-    args = preparation.argument_parser()
-    vs = preparation.reading_file(args=args)
+        # Get coordinates of ROI
+        coordinates = tuple(coordinates_and_dimensions())
 
-    return vs, roi_x, roi_y, roi_width, roi_height
+        print("Region of interest selected.")
+
+        # Get VideoObject
+        args = preparation.argument_parser()
+        vs = preparation.reading_file(args=args)
+
+        return vs, coordinates
 
 
 if __name__ == "__main__":
