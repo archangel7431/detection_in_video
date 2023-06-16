@@ -2,7 +2,7 @@ import cv2
 from roi_coordinates import coordinates_and_dimensions
 import pygame
 import argparse
-from imutils.video import VideoStream 
+from imutils.video import VideoStream
 import time
 
 # Initialising pygame to play alarm.wav
@@ -12,8 +12,9 @@ pygame.mixer.music.set_volume(50.0)
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video", help = "path to the video file")
-ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
+ap.add_argument("-v", "--video", help="path to the video file")
+ap.add_argument("-a", "--min-area", type=int,
+                default=500, help="minimum area size")
 args = vars(ap.parse_args())
 
 # Get coordinates and dimensions of ROI
@@ -27,7 +28,7 @@ if args.get("video", None) is None:
 
 # Otherwise, we are reading from a video file
 else:
-    vs= cv2.VideoCapture(args["video"])
+    vs = cv2.VideoCapture(args["video"])
 
 
 while True:
@@ -43,9 +44,10 @@ while True:
 
     # Crop the frame to the ROI
     roi = frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
-       
+
     # Displaying rectangle representing roi in the frame
-    cv2.rectangle(frame, (roi_x, roi_y), (roi_x + roi_width, roi_y + roi_height), (0, 255, 0), 2)
+    cv2.rectangle(frame, (roi_x, roi_y), (roi_x + roi_width,
+                  roi_y + roi_height), (0, 255, 0), 2)
 
    # Convert the ROI to grayscale
     gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
@@ -69,7 +71,8 @@ while True:
     thresh = cv2.erode(thresh, None, iterations=1)
 
     # Find contours of the thresholded image
-    contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(
+        thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     previous_area = None
 
@@ -80,7 +83,7 @@ while True:
 
         # Calculate the bounding rectangle of the contour
         (x, y, w, h) = cv2.boundingRect(contour)
-        
+
         # Calculate the area of the contour
         current_area = w * h
 
@@ -88,7 +91,7 @@ while True:
         if previous_area is None:
             # Update the previous area
             previous_area = current_area
-        
+
         if current_area > previous_area:
             break
         # Draw a bounding box around the region of motion
@@ -101,7 +104,7 @@ while True:
     # Break the loop on 'q' key press
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    
+
 
 # Release the video capture and close windows
 vs.stop() if args.get("video", None) is None else vs.release()

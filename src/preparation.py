@@ -64,7 +64,6 @@ def getting_roi_ready(frame, roi_wanted, coordinates):
         # Displaying rectangle representing roi in the frame
         cv2.rectangle(frame, (roi_x, roi_y), (roi_x + roi_width,
                       roi_y + roi_height), (0, 255, 0), 2)
-        
 
     return roi
 

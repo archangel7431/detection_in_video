@@ -1,12 +1,13 @@
 # Import the required libraries
 from roi import roi
 
+
 def roi_corner_coordinates(roi):
     left_top_corner = roi[0]
     left_bottom_corner = (roi[0][0], roi[1][1])
     right_bottom_corner = roi[1]
     right_top_corner = (roi[1][0], roi[0][1])
-    
+
     return left_top_corner, left_bottom_corner, right_bottom_corner, right_top_corner
 
 

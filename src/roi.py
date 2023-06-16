@@ -3,6 +3,8 @@ import argparse
 import os
 
 # Callback function for mouse events
+
+
 def select_roi(event, x, y, flags, param):
     global roi_top_left, roi_bottom_right, roi_selected
 
@@ -13,15 +15,17 @@ def select_roi(event, x, y, flags, param):
     elif event == cv2.EVENT_LBUTTONUP:
         roi_bottom_right = (x, y)
         roi_selected = True
-    
+
 
 def argument_parser():
     # Construct the argument parser and parse the arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", help = "Type 'webcam' for webcam or if the source is a video file, write its path.")
+    parser.add_argument(
+        "mode", help="Type 'webcam' for webcam or if the source is a video file, write its path.")
     args = parser.parse_args()
 
     return args.mode
+
 
 def roi():
     global roi_top_left, roi_bottom_right, roi_selected
@@ -36,7 +40,8 @@ def roi():
     source_choice = str(args)
     if source_choice == "webcam":
         # Start capturing video from the webcam
-        video_capture = cv2.VideoCapture(0)  # Replace 0 with the index of your webcam if you have multiple cameras
+        # Replace 0 with the index of your webcam if you have multiple cameras
+        video_capture = cv2.VideoCapture(0)
 
     else:
         if os.path.exists(args):
@@ -49,7 +54,6 @@ def roi():
     # Create a window and bind the mouse callback function
     cv2.namedWindow("Select ROI")
     cv2.setMouseCallback("Select ROI", select_roi)
-
 
     while True:
         # Read the current frame from the video capture

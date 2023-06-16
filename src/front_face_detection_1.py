@@ -12,12 +12,14 @@ pygame.mixer.music.load("alarm.wav")
 pygame.mixer.music.set_volume(50.0)
 
 # Load the pre-trained face cascade classifier
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="path to the video file")
-ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
+ap.add_argument("-a", "--min-area", type=int,
+                default=500, help="minimum area size")
 args = vars(ap.parse_args())
 
 # Get coordinates and dimensions of ROI
@@ -55,7 +57,8 @@ while True:
     thresh = cv2.dilate(thresh, None, iterations=2)
     thresh = cv2.erode(thresh, None, iterations=1)
 
-    contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(
+        thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     previous_area = None
 
@@ -76,7 +79,8 @@ while True:
         pygame.mixer.music.play()
 
         # Detect faces in the grayscale ROI
-        faces = face_cascade.detectMultiScale(gray_roi, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        faces = face_cascade.detectMultiScale(
+            gray_roi, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
         # Iterate over the detected faces and draw rectangles around them
         for (fx, fy, fw, fh) in faces:
