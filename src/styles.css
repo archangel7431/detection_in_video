@@ -1,15 +1,15 @@
 nav {
-     
+
     padding: 10px;
     margin-top: -8px;
     margin-left: -8px;
     margin-right: -8px;
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     height: 45px;
     font-weight: 10;
     background-color: rgb(13, 18, 43);
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
-    
+
 }
 
 ul {
@@ -29,13 +29,14 @@ a {
     text-decoration: none;
     padding: 10px 20px;
     font-weight: 10;
+    width: 130px;
 }
 
 a:hover {
-    color:whitesmoke;
+    color: white;
     background-color: rgb(13, 18, 43);
-    width: 200px;
-    transition: width 0.1s ease;
+    width: 130px;
+    transition: width 0.3s ease;
 }
 
 h1 {
@@ -65,6 +66,7 @@ body {
     background-color: #fff;
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
 }
+
 .title-text-center {
     line-height: 20px;
 }
@@ -83,7 +85,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .dropbtn {
@@ -93,7 +95,7 @@ body {
     font-size: 20px;
     border: none;
     cursor: pointer;
-   
+
 }
 
 .dropdown-content {
@@ -125,8 +127,8 @@ body {
     background-color: rgb(13, 18, 43);
 }
 
- i {
-   color: rgb(13, 18, 43); 
+i {
+    color: rgb(13, 18, 43);
 }
 
 h3 p {
@@ -158,41 +160,48 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
-.icon-list .icon-item .fas{
+.icon-list .icon-item .fas {
     font-size: 3em;
 }
 
-.icon-list .icon-item span{
+.icon-list .icon-item span {
     text-transform: capitalize;
 }
-span{
+
+span {
     line-height: 2;
 }
-.sub{
-    display:flex;
+
+.sub {
+    display: flex;
     gap: 15em;
 }
-h3{
+
+h3 {
     color: black;
     text-align: center;
 }
-.subheading{
+
+.subheading {
     color: rgb(79, 79, 79);
     text-align: center;
 }
-.heading{
+
+.heading {
     font-weight: bold;
     margin-top: 1em;
 }
-hr{
+
+hr .down {
     margin-top: 5em;
-    gap:2em;
+    gap: 2em;
 }
+
 footer {
-    
+
     color: rgb(13, 18, 43);
     text-align: center;
     padding: 10px;
@@ -208,5 +217,6 @@ footer a:hover {
     color: #fff;
 }
 
-
-
+hr .up {
+    margin-top: 100em;
+}
