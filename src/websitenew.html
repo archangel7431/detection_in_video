@@ -2,6 +2,26 @@
 <html lang="en">
 
 <head>
+    <style>
+        body {
+            background-color: blue;
+        }
+
+        .a {
+
+            margin-top: -10px;
+            box-shadow: 250px;
+        }
+
+        .down {
+            margin-top: 25px;
+        }
+
+        div.dropdown1 {
+            margin-left: 200px;
+            border: 2px solid;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="styles.css" rel="stylesheet" />
@@ -18,37 +38,38 @@
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
-    <hr>    
+        <hr class="a">
     </nav>
-    
+
     <div class="title-text-center">
         <h1>MotionAlert</h1>
         <h2>Detection in just few clicks!</h2>
     </div>
-
-    <div class="dropdown">
-        <button class="dropbtn">Upload File</button>
-        <div class="dropdown-content">
-            <a href="#" class="from-device-option">
-                <i class="fas fa-desktop"></i>
-                From Device
-            </a>
-            <a href="#" class="google-drive-option">
-                <i class="fab fa-google-drive"></i>
-                Google Drive
-            </a>
-            <a href="#" class="drop-box-option">
-                <i class="fab fa-dropbox"></i>
-                Dropbox
-            </a>
+    <div>
+        <div class="dropdown">
+            <button class="dropbtn">Upload File</button>
+            <div class="dropdown-content">
+                <a href="#" class="from-device-option">
+                    <i class="fas fa-desktop"></i>
+                    From Device
+                </a>
+                <a href="#" class="google-drive-option">
+                    <i class="fab fa-google-drive"></i>
+                    Google Drive
+                </a>
+                <a href="#" class="drop-box-option">
+                    <i class="fab fa-dropbox"></i>
+                    Dropbox
+                </a>
+            </div>
+            <div class="dropdown1">
+                <button class="dropbtn">Use Webcam</button>
+            </div>
         </div>
     </div>
 
-    <h3>OR</h3>
 
-    <div class="dropdown">
-        <button class="dropbtn">Use Webcam</button>
-    </div>
+    <h3>OR</h3>
 
     <div class="icon-list">
         <div class="icon-item">
@@ -84,10 +105,10 @@
         </div>
     </footer>
     <script>
-        document.querySelector('.from-device-option').addEventListener('click', function() {
+        document.querySelector('.from-device-option').addEventListener('click', function () {
             var fileInput = document.createElement('input');
             fileInput.type = 'file';
-            fileInput.addEventListener('change', function(e) {
+            fileInput.addEventListener('change', function (e) {
                 var file = e.target.files[0];
                 console.log(file);
             });

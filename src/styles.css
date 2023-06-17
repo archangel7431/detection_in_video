@@ -1,5 +1,4 @@
 nav {
-
     padding: 10px;
     margin-top: -8px;
     margin-left: -8px;
@@ -36,7 +35,7 @@ a:hover {
     color: white;
     background-color: rgb(13, 18, 43);
     width: 130px;
-    transition: width 0.3s ease;
+    transition: width 10.2s ease;
 }
 
 h1 {
