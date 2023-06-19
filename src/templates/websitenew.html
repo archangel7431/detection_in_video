@@ -2,13 +2,33 @@
 <html lang="en">
 
 <head>
+    <style>
+        body {
+            background-color: blue;
+        }
+
+        .a {
+
+            margin-top: -10px;
+            box-shadow: 250px;
+        }
+
+        .down {
+            margin-top: 25px;
+        }
+
+        div.dropdown1 {
+            margin-left: 200px;
+            border: 2px solid;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./../static/styles.css')}}">
+    <link href="styles.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>MotionAlert</title>
 </head>
-<!-- "./../static/styles.css" -->
+
 <body>
 
     <nav>
@@ -18,41 +38,38 @@
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
-        <hr>
+        <hr class="a">
     </nav>
 
     <div class="title-text-center">
         <h1>MotionAlert</h1>
         <h2>Detection in just few clicks!</h2>
     </div>
-
-    <div class="dropdown">
-        <button class="dropbtn">Upload File
-
-        </button>
-
-        <div class="dropdown-content">
-            <a href="#" class="from-device-option">
-                <i class="fas fa-desktop"></i>
-                From Device
-            </a>
-            <a href="#" class="google-drive-option">
-                <i class="fab fa-google-drive"></i>
-                Google Drive
-            </a>
-            <a href="#" class="drop-box-option">
-                <i class="fab fa-dropbox"></i>
-                Dropbox
-            </a>
+    <div>
+        <div class="dropdown">
+            <button class="dropbtn">Upload File</button>
+            <div class="dropdown-content">
+                <a href="#" class="from-device-option">
+                    <i class="fas fa-desktop"></i>
+                    From Device
+                </a>
+                <a href="#" class="google-drive-option">
+                    <i class="fab fa-google-drive"></i>
+                    Google Drive
+                </a>
+                <a href="#" class="drop-box-option">
+                    <i class="fab fa-dropbox"></i>
+                    Dropbox
+                </a>
+            </div>
+            <div class="dropdown1">
+                <button class="dropbtn">Use Webcam</button>
+            </div>
         </div>
     </div>
 
+
     <h3>OR</h3>
-
-    <div class="dropdown">
-        <button class="dropbtn" id="webcamBtn">Use Webcam</button>
-
-    </div>
 
     <div class="icon-list">
         <div class="icon-item">
@@ -77,7 +94,6 @@
             <span class="subheading">performed via secure channels.</span>
         </div>
     </div>
-
     <hr class="down">
     <footer>
 
@@ -98,15 +114,6 @@
             });
             fileInput.click();
         });
-        document.querySelector('#webcamBtn').addEventListener('click', function () {
-            var newWindow = window.open('webcam.html', 'Webcam', 'width=800,height=600');
-            if (newWindow) {
-                newWindow.focus();
-            } else {
-                console.log('Failed to open the webcam window');
-            }
-        });
-
     </script>
 
 

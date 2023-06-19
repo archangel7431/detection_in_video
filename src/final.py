@@ -64,6 +64,17 @@ def roi_and_getting_object(roi_wanted):
 
         return vs, coordinates
 
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template(".\src\templates\websitenew.html")
+
 
 if __name__ == "__main__":
-    motion_detection()
+    #motion_detection()
+    app.run(debug=True)
+
+    
