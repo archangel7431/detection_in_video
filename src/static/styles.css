@@ -56,6 +56,25 @@ h2 {
 }
 
 body {
+        background-color: blue;
+    }
+
+.a {
+
+        margin-top: -10px;
+        box-shadow: 250px;
+    }
+
+.down {
+        margin-top: 25px;
+    }
+
+div .dropdown1 {
+        margin-left: 200px;
+        border: 2px solid;
+    }
+
+body {
     margin: 0;
     font-family: Inter, sans-serif;
     font-size: .875rem;

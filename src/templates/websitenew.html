@@ -2,30 +2,11 @@
 <html lang="en">
 
 <head>
-    <style>
-        body {
-            background-color: blue;
-        }
-
-        .a {
-
-            margin-top: -10px;
-            box-shadow: 250px;
-        }
-
-        .down {
-            margin-top: 25px;
-        }
-
-        div.dropdown1 {
-            margin-left: 200px;
-            border: 2px solid;
-        }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href=".\..\static\styles.css" rel="stylesheet"/>
+    <link href=".\..\static\styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>MotionAlert</title>
 </head>
 
@@ -62,14 +43,16 @@
                     Dropbox
                 </a>
             </div>
-            <div class="dropdown1">
-                <button class="dropbtn">Use Webcam</button>
-            </div>
         </div>
+        <h3>OR</h3>
+        <div class="dropdown">
+            <button class="dropbtn" id="webcamBtn">Use Webcam</button>
+        </div>
+
     </div>
 
 
-    <h3>OR</h3>
+
 
     <div class="icon-list">
         <div class="icon-item">
@@ -110,10 +93,30 @@
             fileInput.type = 'file';
             fileInput.addEventListener('change', function (e) {
                 var file = e.target.files[0];
-                console.log(file);
+                var filePath= URL.createObjectURL(file);
+                console.log(filePath);
+                $.ajax({
+                    url: '/process-file',
+                    type: 'POST',
+                    data: { filePath: filePath },
+                    success: function (response) {
+                    console.log('File path sent successfully');
+                    },
+                    error: function (error) {
+                    console.error('Error sending file path:', error);
+                    }
+                });
             });
             fileInput.click();
         });
+        document.querySelector('#webcamBtn').addEventListener('click', function() {
+            var newWindow = window.open('webcam.html', 'Webcam', 'width=800,height=600');
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                console.log('Failed to open the webcam window');
+            }
+        });  
     </script>
 
 
