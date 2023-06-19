@@ -18,16 +18,19 @@
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
-    <hr>    
+        <hr>
     </nav>
-    
+
     <div class="title-text-center">
         <h1>MotionAlert</h1>
         <h2>Detection in just few clicks!</h2>
     </div>
 
     <div class="dropdown">
-        <button class="dropbtn">Upload File</button>
+        <button class="dropbtn">Upload File
+
+        </button>
+
         <div class="dropdown-content">
             <a href="#" class="from-device-option">
                 <i class="fas fa-desktop"></i>
@@ -47,7 +50,8 @@
     <h3>OR</h3>
 
     <div class="dropdown">
-        <button class="dropbtn">Use Webcam</button>
+        <button class="dropbtn" id="webcamBtn">Use Webcam</button>
+
     </div>
 
     <div class="icon-list">
@@ -73,6 +77,7 @@
             <span class="subheading">performed via secure channels.</span>
         </div>
     </div>
+
     <hr class="down">
     <footer>
 
@@ -84,15 +89,24 @@
         </div>
     </footer>
     <script>
-        document.querySelector('.from-device-option').addEventListener('click', function() {
+        document.querySelector('.from-device-option').addEventListener('click', function () {
             var fileInput = document.createElement('input');
             fileInput.type = 'file';
-            fileInput.addEventListener('change', function(e) {
+            fileInput.addEventListener('change', function (e) {
                 var file = e.target.files[0];
                 console.log(file);
             });
             fileInput.click();
         });
+        document.querySelector('#webcamBtn').addEventListener('click', function () {
+            var newWindow = window.open('webcam.html', 'Webcam', 'width=800,height=600');
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                console.log('Failed to open the webcam window');
+            }
+        });
+
     </script>
 
 
