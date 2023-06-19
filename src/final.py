@@ -70,7 +70,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('.\src\templates\websitenew.html')
+    return render_template("websitenew.html")
 
 
 if __name__ == "__main__":
