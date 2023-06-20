@@ -99,24 +99,32 @@ body {
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px 24px;
-
-
+    padding: 17px 26px;
+    align-content: center;
+}
+div .dropdown {
+    align-self: center;
 }
 
-.dropbtn {
+.dropdown {
+    align-content: start;
+}
+
+.dropdown .dropbtn {
     background-color: rgb(13, 18, 43);
     color: #f5f0f0;
     padding: 16px 24px;
     font-size: 20px;
     border: none;
     cursor: pointer;
-
+    display: block;
+    /* width: 20%; */
+    text-align: center;
+    text-decoration: none;
 }
 
 .dropdown-content {
