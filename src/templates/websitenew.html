@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href=".\..\static\styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <title>MotionAlert</title>
 </head>
 
@@ -29,7 +31,7 @@
     <div>
         <div class="dropdown">
             <button class="dropbtn">Upload File</button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" >
                 <a href="#" class="from-device-option">
                     <i class="fas fa-desktop"></i>
                     From Device
@@ -88,53 +90,43 @@
         </div>
     </footer>
     <script>
-        // document.querySelector('.from-device-option').addEventListener('click', function () {
-        //     var fileInput = document.createElement('input');
-        //     fileInput.type = 'file';
-        //     fileInput.addEventListener('change', function (e) {
-        //         var file = e.target.files[0];
-        //         var filePath = URL.createObjectURL(file);
-        //         console.log(filePath);
-        //         $.ajax({
-        //             url: '/process-file',
-        //             type: 'POST',
-        //             data: { filePath: filePath },
-        //             success: function (response) {
-        //                 // console.log('File path sent successfully');
-        //                 var successMessage = response.message;
-        //                 console.log("Success", successMessage);
-        //                 alert(successMessage);
-        //             },
-        //             error: function (error) {
-        //                 console.error('Error sending file path:', error);
-        //                 alert(error)
-        //             }
-        //         });
-        //     });
-        //     fileInput.click();
-        // });
-
-
-
-        
-        fetch("http://localhost:5000/data")
-         .then(function(response) {
-            if (response.ok) {
-                return response.json();
+        document.querySelector('.dropbtn').addEventListener('click', function () {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            var computedStyle = window.getComputedStyle(dropdownContent);
+            if (computedStyle.getPropertyValue('display') === 'none') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
             }
-            throw new Error("Network response was not ok");
-         })
-          .then(function(data) {
-            console.log(data);
-          })
-           .catch(function(error) {
-            console.log("Error:", error.message);
-           })
+        });
 
 
-
-
-
+        document.querySelector('.from-device-option').addEventListener('click', function () {
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.addEventListener('change', function (e) {
+                var file = e.target.files[0];
+                var filePath = URL.createObjectURL(file);
+                console.log(filePath);
+                $.ajax({
+                    url: '/process-file',
+                    type: 'POST',
+                    data: { filePath: filePath },
+                    success: function (response) {
+                        var successMessage = response;
+                        console.log('Success:', successMessage);
+                        setTimeout(function () {
+                            alert(successMessage);
+                        }, 0);
+                        console.log('File path sent successfully');
+                    },
+                    error: function (error) {
+                        console.error('Error sending file path:', error);
+                    }
+                });
+            });
+            fileInput.click();
+        });
         document.querySelector('#webcamBtn').addEventListener('click', function () {
             var newWindow = window.open('webcam.html', 'Webcam', 'width=800,height=600');
             if (newWindow) {

@@ -56,23 +56,23 @@ h2 {
 }
 
 body {
-        background-color: blue;
-    }
+    background-color: blue;
+}
 
 .a {
 
-        margin-top: -10px;
-        box-shadow: 250px;
-    }
+    margin-top: -10px;
+    box-shadow: 250px;
+}
 
 .down {
-        margin-top: 25px;
-    }
+    margin-top: 25px;
+}
 
 div .dropdown1 {
-        margin-left: 200px;
-        border: 2px solid;
-    }
+    margin-left: 200px;
+    border: 2px solid;
+}
 
 body {
     margin: 0;
@@ -99,36 +99,30 @@ body {
 }
 
 .dropdown {
-    position: absolute;
+    /* position: relative; */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 17px 26px;
-    align-content: center;
-}
-div .dropdown {
-    align-self: center;
+    padding: 20px 30px;
+    /* width: 5px; */
+    /* height: 30px;  */
+    /* margin-left: 50em; */
+
+
 }
 
-.dropdown {
-    align-content: start;
-}
-
-.dropdown .dropbtn {
+.dropbtn {
     background-color: rgb(13, 18, 43);
     color: #f5f0f0;
-    padding: 16px 24px;
+    padding: inherit;
     font-size: 20px;
     border: none;
     cursor: pointer;
-    display: block;
-    /* width: 20%; */
-    text-align: center;
-    text-decoration: none;
+   
 }
 
 .dropdown-content {
-    display: none;
+    display: block;
     position: absolute;
     background-color: #f8f8f8;
     min-width: 160px;
@@ -248,4 +242,8 @@ footer a:hover {
 
 hr .up {
     margin-top: 100em;
+}
+button .dropbtn{
+    height: fit-content;
+    
 }
