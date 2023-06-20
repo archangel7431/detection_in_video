@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-import subprocess
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -9,18 +10,11 @@ def home():
     return render_template("websitenew.html")
 
 
-@app.route("/process-file", methods=["POST"])
-def process_file():
-    file_path = request.form.get("filePath")
+@app.route("/data", methods=["GET"])
+def get_data():
+    print("GET MESSAGE!!!")
 
-    # result = subprocess.run(
-    #     ["python", ".\src\final.py", file_path], capture_output=True, text=True)
-
-    # output = result.stdout
-
-    print(f"Received file path: {file_path}")
-
-    return jsonify({"Message": "File path receieved and processed"})
+    return jsonify({"Message": "Hello from Flask server!"})
 
 
 if __name__ == "__main__":
