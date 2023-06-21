@@ -7,7 +7,7 @@ nav {
     margin-bottom: 0.5em;
     height: 45px;
     font-weight: 10;
-    /* background-color: rgb(13, 18, 43); */
+   
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
 
 }
@@ -56,7 +56,7 @@ h2 {
 }
 
 body {
-    background-color: blue;
+    background-color:rgb(150, 154, 174);
 }
 
 .a {
@@ -82,7 +82,7 @@ body {
     line-height: 3;
     background: #262628;
     text-align: left;
-    /* background-color: #fff; */
+   
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
 }
 
@@ -98,16 +98,17 @@ body {
     text-align: right;
 }
 
+.upload-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
 .dropdown {
     position: relative; 
     display: inline-block;
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* padding: 20px 30px; */
-    /* width: 5px; */
-    /* height: 30px;  */
-    /* margin-left: 50em; */
-
+   
 
 }
 
@@ -125,11 +126,8 @@ body {
     display: none;
     position: fixed;
     background-color: #f8f8f8;
-    min-width: 160px; 
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    /* top:100%; */
-    /* margin-top: ; */
 }
 
 .dropdown-content a {
@@ -140,35 +138,18 @@ body {
 }
 
 .dropdown-content a:hover {
-    background-color: rgb(150, 154, 174);
+    background-color: rgb(142, 156, 227);
 }
 
-/* .dropdown:hover .dropdown-content {
-    display: block;
- } */
 
-.dropdown:hover ,.dropbtn:focus {
-    background-color: rgb(13, 18, 43);
+
+.dropdown:hover button ,.dropbtn:focus button {
+    background-color:rgb(13, 18, 43);
+    color: white;
 } 
 
 i {
     color: rgb(13, 18, 43);
-}
-
-h3 p {
-    margin-left: 225px;
-}
-
-p {
-    color: gray;
-}
-
-.smallhead {
-    display: flex;
-}
-
-.smallhead>div {
-    flex: 1
 }
 
 .icon-list {
@@ -197,16 +178,6 @@ p {
 
 span {
     line-height: 2;
-}
-
-.sub {
-    display: flex;
-    gap: 15em;
-}
-
-h3 {
-    color: black;
-    margin-left: ;
 }
 
 .subheading {
@@ -248,5 +219,7 @@ button.dropbtn{
     height: fit-content;
     
 }
-
+.buttons{
+    margin-left:30%;
+}
  
