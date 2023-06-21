@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+import logging
 
 app = Flask(__name__)
 CORS(app)
+
+logging.basicConfig(filename="server.log", level=logging.DEBUG)
 
 
 @app.route("/")
@@ -17,19 +20,23 @@ def get_data():
     return jsonify(data)
 
 
-# @app.route('/upload', methods=['GET', 'POST'])
-# def upload_file():
-#     if request.method == 'POST':
-#         # Check if a file was uploaded
-#         if 'file' in request.files:
-#             file = request.files['file']
-#             # Process the file as needed
-#             # Example: Save the file to the current directory
-#             file.save(file.filename)
-#             return 'File uploaded successfully.'
-#     # If no file was uploaded or GET request, render the HTML form
-#     return render_template('websitenew.html')
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # Accessing all headers
+    logging.debug('Request Headers:')
+    for header, value in request.headers.items():
+        logging.debug(f"{header}: {value}")
 
+    logging.debug('Request JSON Payload:')
+    logging.debug(request.get_json())
+
+
+    uploaded_file = request.files['data']
+    uploaded_file.save(uploaded_file.filename)  # Save the file to disk
+    # Process the uploaded file here
+    # Add your file processing logic
+
+    return 'Upload endpoint'
 
 if __name__ == "__main__":
     app.run()

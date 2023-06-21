@@ -35,7 +35,7 @@
     <div class="upload-list">
         <div class="dropdown">
             <!-- created a button named upload file -->
-            <button onclick="myFunction()" class="dropbtn">Upload File</button>
+            <button class="dropbtn">Upload File</button>
 
             <!-- Dropdown menu for Upload file -->
             <div id="myDropdown" class="dropdown-content">
@@ -145,6 +145,31 @@
                 var file = e.target.files[0];
                 var filePath = URL.createObjectURL(file);
                 console.log(filePath);
+
+                // Create an object to hold the data
+                var data = {
+                    filePath:filePath
+                };
+
+                // Send the data to the server
+                fetch("http://localhost:5000/upload", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        // Data successfully sent to the server
+                        console.log("File path sent to the server");
+                    } else {
+                        throw new Error("Error sending file path to the server");
+                    }
+                })
+                .catch(function(error) {
+                    console.log("Error:", error.message);
+                });
             });
             fileInput.click();
         });
