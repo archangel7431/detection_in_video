@@ -127,6 +127,7 @@ body {
     background-color: #f8f8f8;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    margin-left: -25px;
 }
 
 .dropdown-content a {
@@ -142,11 +143,10 @@ body {
 
 
 
-.dropdown:hover button,
-.dropbtn:focus button {
-    background-color: rgb(13, 18, 43);
-    color: white;
-}
+.dropdown:hover button ,.dropbtn:focus button {
+    background-color:rgb(142, 156, 227);
+    color: rgb(13, 18, 43);
+} 
 
 i {
     color: rgb(13, 18, 43);
