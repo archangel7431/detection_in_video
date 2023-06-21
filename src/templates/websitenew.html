@@ -32,7 +32,7 @@
         <h1>MotionAlert</h1>
         <h2>Detection in just few clicks!</h2>
     </div>
-    <div class="upload">
+    <div class="upload-list">
         <div class="dropdown">
             <!-- created a button named upload file -->
             <button onclick="myFunction()" class="dropbtn">Upload File</button>
@@ -69,7 +69,7 @@
             <!-- globe icon -->
             <i class="fas fa-globe"></i>
 
-        <!-- heading below globe icon -->
+            <!-- heading below globe icon -->
             <span class="heading">Online Tool</span>
 
             <!-- texts below globe icon -->
@@ -116,7 +116,7 @@
         </div>
     </footer>
     <script>
-        
+
         // function to appear dropdown menu when we click on Upload File//
         document.querySelector('.dropbtn').addEventListener('click', function () {
             var dropdownContent = document.querySelector('.dropdown-content');
@@ -128,7 +128,7 @@
             }
         });
 
-//function for browsing file when we click on from device//
+        //function for browsing file when we click on from device//
         document.querySelector('.from-device-option').addEventListener('click', function () {
             var fileInput = document.createElement('input');
             fileInput.type = 'file';
@@ -136,22 +136,7 @@
                 var file = e.target.files[0];
                 var filePath = URL.createObjectURL(file);
                 console.log(filePath);
-                $.ajax({
-                    url: '/process-file',
-                    type: 'POST',
-                    data: { filePath: filePath },
-                    success: function (response) {
-                        var successMessage = response;
-                        console.log('Success:', successMessage);
-                        setTimeout(function () {
-                            alert(successMessage);
-                        }, 0);
-                        console.log('File path sent successfully');
-                    },
-                    error: function (error) {
-                        console.error('Error sending file path:', error);
-                    }
-                });
+
             });
             fileInput.click();
         });
@@ -164,7 +149,24 @@
             } else {
                 console.log('Failed to open the webcam window');
             }
-        });  
+        });
+        
+        // Fetching from server
+        fetch("http://localhost:5000/data")
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(function (data) {
+                console.log(data);
+                // Process the data received from the server
+            })
+            .catch(function (error) {
+                console.log("Error:", error.message);
+            });
+
     </script>
 
 
