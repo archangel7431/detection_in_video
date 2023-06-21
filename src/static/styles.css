@@ -69,10 +69,10 @@ body {
     margin-top: 25px;
 }
 
-div .dropdown1 {
+/* div .dropdown1 {
     margin-left: 200px;
     border: 2px solid;
-}
+} */
 
 body {
     margin: 0;
@@ -118,6 +118,10 @@ body {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    /* margin-left: 55%; */
    
 }
 
@@ -136,7 +140,7 @@ body {
     color: rgb(13, 18, 43);
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
+    display: inherit;
 }
 
 .dropdown-content a:hover {
@@ -147,17 +151,18 @@ body {
     display: block;
  } */
 
-.dropdown:hover ,.dropbtn:focus {
-    background-color: rgb(13, 18, 43);
-} 
+/* .dropdown:hover ,.dropbtn:focus { */
+    /* background-color: rgb(13, 18, 43); */
+    /* background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg"); */
+/* }  */
 
 i {
     color: rgb(13, 18, 43);
 }
 
-h3 p {
+/* h3 p {
     margin-left: 225px;
-}
+} */
 
 p {
     color: gray;
@@ -206,7 +211,7 @@ span {
 
 h3 {
     color: black;
-    margin-left: ;
+    /* margin-left: 50%; */
 }
 
 .subheading {
@@ -216,7 +221,7 @@ h3 {
 
 .heading {
     font-weight: bold;
-    margin-top: 1em;
+    /* margin-top: 1em; */
 }
 
 hr .down {
@@ -249,4 +254,11 @@ button.dropbtn{
     
 }
 
- 
+.upload {
+    align-items: center;
+    align-content: center;
+}
+
+.div {
+    display: flex;
+}
