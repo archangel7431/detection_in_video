@@ -7,7 +7,7 @@ nav {
     margin-bottom: 0.5em;
     height: 45px;
     font-weight: 10;
-   
+
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
 
 }
@@ -56,7 +56,7 @@ h2 {
 }
 
 body {
-    background-color:rgb(150, 154, 174);
+    background-color: rgb(150, 154, 174);
 }
 
 .a {
@@ -69,10 +69,6 @@ body {
     margin-top: 25px;
 }
 
-div .dropdown1 {
-    margin-left: 200px;
-    border: 2px solid;
-}
 
 body {
     margin: 0;
@@ -82,7 +78,7 @@ body {
     line-height: 3;
     background: #262628;
     text-align: left;
-   
+
     background-image: url("https://cdn.wallpapersafari.com/93/79/0PxyBf.jpg");
 }
 
@@ -106,9 +102,9 @@ body {
 }
 
 .dropdown {
-    position: relative; 
+    position: relative;
     display: inline-block;
-   
+
 
 }
 
@@ -119,7 +115,10 @@ body {
     font-size: 16px;
     border: none;
     cursor: pointer;
-   
+    align-self: center;
+    align-content: center;
+    align-items: center;
+
 }
 
 .dropdown-content {
@@ -135,7 +134,7 @@ body {
     color: rgb(13, 18, 43);
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
+    display: inherit;
 }
 
 .dropdown-content a:hover {
@@ -188,7 +187,6 @@ span {
 
 .heading {
     font-weight: bold;
-    margin-top: 1em;
 }
 
 hr .down {
@@ -216,11 +214,12 @@ footer a:hover {
 hr .up {
     margin-top: 100em;
 }
-button.dropbtn{
+
+button.dropbtn {
     height: fit-content;
-    
+
 }
-.buttons{
-    margin-left:30%;
+
+.buttons {
+    margin-left: 30%;
 }
- 
