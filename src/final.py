@@ -3,8 +3,11 @@ import cv2
 from roi_coordinates import coordinates_and_dimensions
 
 
-def motion_detection():
-    args = preparation.argument_parser()
+def motion_detection(command_line=True):
+    if command_line:
+        args = preparation.argument_parser()
+    else:
+        pass
 
     fgbg = cv2.createBackgroundSubtractorMOG2()
 
