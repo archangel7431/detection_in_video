@@ -10,11 +10,11 @@ def home():
     return render_template("websitenew.html")
 
 
-# @app.route('/data', methods=['GET'])
-# def get_data():
-#     # Process the request and generate a response
-#     data = {'message': 'Hello from Flask server!'}
-#     return jsonify(data)
+@app.route('/data', methods=['GET'])
+def get_data():
+    # Process the request and generate a response
+    data = {'message': 'Hello from Flask server!'}
+    return jsonify(data)
 
 
 # @app.route('/upload', methods=['GET', 'POST'])
