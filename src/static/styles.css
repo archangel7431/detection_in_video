@@ -144,8 +144,8 @@ body {
 
 
 .dropdown:hover button ,.dropbtn:focus button {
-    background-color:rgb(142, 156, 227);
-    color: rgb(13, 18, 43);
+    background-color:rgb(13,18,43);
+    color: white;
 } 
 
 i {
