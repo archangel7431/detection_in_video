@@ -1,19 +1,10 @@
 # Importing libraries
 import cv2
-import pygame
 import argparse
-from imutils.video import VideoStream
-import time
 import os
 import numpy as np
 from roi_coordinates import coordinates_and_dimensions
-
-
-# Initialising pygame to play
-def init_pygame(tone_path):
-    pygame.mixer.init()
-    pygame.mixer.music.load(tone_path)
-    pygame.mixer.music.set_volume(50.0)
+import platform
 
 
 def argument_parser():
@@ -30,8 +21,7 @@ def argument_parser():
 def reading_file(args):
     # if the video argument is None, then we are reading from webcam
     if args == "webcam":
-        vs = VideoStream(src=0).start()
-        time.sleep(2.0)
+        vs = cv2.VideoCapture(0)
 
     # Otherwise, we are reading from a video file
     else:
@@ -42,15 +32,6 @@ def reading_file(args):
                 f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program.")
 
     return vs
-
-
-def getting_frame(vs):
-    if str(type(vs)) == "<class 'imutils.video.webcamvideostream.WebcamVideoStream'>":
-        frame = vs.read()
-    elif str(type(vs)) == "<class 'cv2.VideoCapture'>":
-        ret, frame = vs.read()
-
-    return frame
 
 
 def getting_roi_ready(frame, roi_wanted, coordinates):
@@ -93,8 +74,22 @@ def contour(contours, min_area, roi):
 
             # Draw a bounding box around the region of motion
             cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 0, 255), 3)
-            pygame.mixer.music.play()
+            sound_alarm()
+
+
+def sound_alarm():
+    tone_path = "alarm.wav"
+    import pygame
+    pygame.mixer.init()
+    if os.path.exists(tone_path):
+        pygame.mixer.music.load(tone_path)
+    else:
+        print(
+            f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}.")
+    pygame.mixer.music.load(tone_path)
+    pygame.mixer.music.set_volume(50.0)
+    pygame.mixer.music.play()
 
 
 if __name__ == "__main__":
-    pass
+    sound_alarm()

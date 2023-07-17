@@ -5,7 +5,7 @@ from roi_coordinates import coordinates_and_dimensions
 
 def motion_detection(command_line=True):
     if command_line:
-        args = preparation.argument_parser()
+        preparation.argument_parser()
     else:
         pass
 
@@ -16,16 +16,13 @@ def motion_detection(command_line=True):
         input("If you don't want ROI, press ENTER. If you want ROI, write 'True': "))
     vs, coordinates = roi_and_getting_object(roi_wanted)
 
-    # Initializing pygame with tone
-    preparation.init_pygame("alarm.wav")
-
     while True:
-        frame = preparation.getting_frame(vs)
+        _, frame = vs.read()
         roi = preparation.getting_roi_ready(frame, roi_wanted, coordinates)
         fgmask = fgbg.apply(roi)
 
         thresh = 85
-        contours = preparation.finding_contour(fgmask.copy(), thresh)
+        contours = preparation.finding_contour(fgmask, thresh)
 
         # Finding motion in ROI
         min_area = 500
@@ -39,7 +36,7 @@ def motion_detection(command_line=True):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     # Release the video capture and close windows
-    vs.stop() if args == "webcam" else vs.release()
+    vs.release()
     cv2.destroyAllWindows()
     print("Completed, for now")
 
