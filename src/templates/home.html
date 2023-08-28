@@ -142,6 +142,7 @@
             }
         });
 
+
         // Event listener for file upload from device
         document.getElementById('upload-button').addEventListener('click', function (e) {
             e.preventDefault();
@@ -160,45 +161,6 @@
                 .then(data => console.log(data))
                 .catch(error => console.error(error));
         });
-
-        // // Event listener for file upload from google drive
-        // document.getElementById('drive-button').addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     // Load the Google API client and the auth2 Library
-        //     gapi.load('client:auth2', initClient);
-        // });
-
-        // function initClient() {
-        //     gapi.client.init({
-        //         apiKey: 'YOUR_API_KEY',
-        //         clientId: 'YOUR_CLIENT_ID',
-        //         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-        //         scope: 'https://www.googleapis.com/auth/drive.readonly'
-        //     }).then(function() {
-        //         // Sign in the user upon button click
-        //         gapi.auth2.getAuthInstance().signIn().then(function() {
-        //             // Open the file picker after the user is signed in
-        //             var view = new google.picker.View(google.picker.ViewId.DOCS);
-        //             var picker = new gogole.picker.PickerBuilder()
-        //                 .enableFeature(google.picker.Feature.NAV_HIDDEN)
-        //                 .setOAuthToken(gapi.auth.getToken().access_token)
-        //                 .addView(view)
-        //                 .setCallback(pickerCallback)
-        //                 .build();
-        //             picker.setVisible(true);
-        //         });
-        //     }, function(error) {
-        //         console.error(error);
-        //     });
-        // }
-        // function pickerCallback(data) {
-        //     if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-        //         var fileId = data[google.picker.Response.DOCUMENTS][0][google.picker.Document.ID];
-        //         console.log('The user selected: ' + fileId);
-        //         // You can now use this file ID to download the file or share it with your server
-        //     }
-        // }
-
     </script>
 
 </body>

@@ -8,6 +8,7 @@
         body {
             margin: 0;
         }
+
         video {
             width: 100%;
             height: 100%;
@@ -22,9 +23,12 @@
             .then(function (stream) {
                 var video = document.getElementById("webcamVideo");
                 video.srcObject = stream;
+                video.onloadedmetadata = function (e) {
+                    video.play();
+                };
             })
             .catch(function (error) {
-                console.log("Failed to access webcam:", error);
+                console.log(error.name + ": " + error.message);
             });
     </script>
 </body>
