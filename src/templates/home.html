@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href=".\..\static\styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Title of the website -->
+    <title>MotionAlert</title>
+
+</head>
+
+<body>
+    <!-- Creating navigation bar -->
+    <nav>
+        <!-- navigation bar elements -->
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <!-- line below navigation bar -->
+        <hr class="a">
+    </nav>
+
+    <!-- Main headings in the website -->
+    <div class="title-text-center">
+        <h1>MotionAlert</h1>
+        <h2>Detection in just few clicks!</h2>
+    </div>
+
+    <!-- Uploading blocks in website -->
+    <div class="upload-list">
+        <div class="dropdown">
+            <!-- created a button named upload file -->
+            <button class="dropbtn">Upload File</button>
+
+            <!-- Dropdown menu for Upload file -->
+            <div id="myDropdown" class="dropdown-content">
+
+                <!-- dropdown menu options along with their icons are added below-->
+                <!-- From Device -->
+                <a href="#" class="from-device-option">
+                    <input type="file" id="file-upload" name="file-upload" style="display: none;">
+                    <button id="upload-button"><i class="fas fa-desktop"></i>
+                        <p> From Device </p>
+                    </button>
+                </a>
+                <!-- From Google Drive -->
+                <a href="#" class="google-drive-option">
+                    <i class="fab fa-google-drive"></i>
+                    <button id="drive-button"><i class="fab fa-google-drive"></i> Google drive</button>
+                </a>
+                <!-- From Dropbox -->
+                <a href="#" class="drop-box-option">
+                    <i class="fab fa-dropbox"></i>
+                    Dropbox
+                </a>
+            </div>
+        </div>
+
+        <!-- OR in the center of buttons -->
+        <h3>OR</h3>
+
+        <!-- created a button named Use Webcam -->
+        <div class="dropdown">
+            <button class="dropbtn" id="webcamBtn">Use Webcam</button>
+        </div>
+    </div>
+
+
+    <!-- Ending of website -->
+    <div class="icon-list"> <!-- icons and specialities of website -->
+        <div class="icon-item">
+            <!-- globe icon -->
+            <i class="fas fa-globe"></i>
+
+            <!-- heading below globe icon -->
+            <span class="heading">Online Tool</span>
+
+            <!-- texts below globe icon -->
+            <span class="subheading">The motion detector is completely online </span>
+            <span class="subheading">which means that you don't have to download</span>
+            <span class="subheading">and install anything to your device.</span>
+        </div>
+
+        <div class="icon-item">
+            <!-- star icon -->
+            <i class="fas fa-star"></i>
+
+            <!-- heading below star icon -->
+            <span class="heading">Simple Interface</span>
+
+            <!-- texts below star icon -->
+            <span class="subheading">Don't worry, the tool is really intuitive,</span>
+            <span class="subheading">you don't even need to read a manual to use it!</span>
+        </div>
+
+        <div class="icon-item">
+            <!-- shield icon -->
+            <i class="fas fa-shield-alt"></i>
+
+            <!-- heading below shield icon -->
+            <span class="heading">Secure Encryption</span>
+
+            <!--texts below shield icon -->
+            <span class="subheading">You're the only one who has access to your </span>
+            <span class="subheading"> files because all the communications are </span>
+            <span class="subheading">performed via secure channels.</span>
+        </div>
+    </div>
+    <!-- line -->
+    <hr class="down">
+
+
+    <footer>
+        <!-- list of elements below line -->
+        <ul>
+            <li item="bottom"><a href="#">Privacy Policy</a></li>
+            <li item="bottom"><a href="#">Terms of Service</a></li>
+            <li item="bottom"><a href="#">Copyright
+                    © 2023 MotionAlert. All Rights Reserved.</a></li>
+        </ul>
+        </div>
+    </footer>
+
+
+    <script>
+        // function to appear dropdown menu when we click on Upload File//
+        document.querySelector('.dropbtn').addEventListener('click', function () {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            var computedStyle = window.getComputedStyle(dropdownContent);
+            if (computedStyle.getPropertyValue('display') === 'none') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
+            }
+        });
+
+        // Event listener for file upload from device
+        document.getElementById('upload-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('file-upload').click();
+        });
+
+        document.getElementById('file-upload').addEventListener('change', function () {
+            var formData = new FormData();
+            formData.append('file', this.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        });
+
+        // // Event listener for file upload from google drive
+        // document.getElementById('drive-button').addEventListener('click', function(e) {
+        //     e.preventDefault();
+        //     // Load the Google API client and the auth2 Library
+        //     gapi.load('client:auth2', initClient);
+        // });
+
+        // function initClient() {
+        //     gapi.client.init({
+        //         apiKey: 'YOUR_API_KEY',
+        //         clientId: 'YOUR_CLIENT_ID',
+        //         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+        //         scope: 'https://www.googleapis.com/auth/drive.readonly'
+        //     }).then(function() {
+        //         // Sign in the user upon button click
+        //         gapi.auth2.getAuthInstance().signIn().then(function() {
+        //             // Open the file picker after the user is signed in
+        //             var view = new google.picker.View(google.picker.ViewId.DOCS);
+        //             var picker = new gogole.picker.PickerBuilder()
+        //                 .enableFeature(google.picker.Feature.NAV_HIDDEN)
+        //                 .setOAuthToken(gapi.auth.getToken().access_token)
+        //                 .addView(view)
+        //                 .setCallback(pickerCallback)
+        //                 .build();
+        //             picker.setVisible(true);
+        //         });
+        //     }, function(error) {
+        //         console.error(error);
+        //     });
+        // }
+        // function pickerCallback(data) {
+        //     if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+        //         var fileId = data[google.picker.Response.DOCUMENTS][0][google.picker.Document.ID];
+        //         console.log('The user selected: ' + fileId);
+        //         // You can now use this file ID to download the file or share it with your server
+        //     }
+        // }
+
+    </script>
+
+</body>
+
+</html>
