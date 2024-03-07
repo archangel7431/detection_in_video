@@ -1,10 +1,8 @@
 # Importing libraries
-import cv2
-import argparse
 import os
+import argparse
+import cv2
 import numpy as np
-from roi_coordinates import coordinates_and_dimensions
-import platform
 
 
 def argument_parser():

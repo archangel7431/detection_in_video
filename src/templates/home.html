@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/src/templates/home1.js"> </script>
 
     <!-- Title of the website -->
     <title>MotionAlert</title>
@@ -46,20 +47,25 @@
                 <!-- dropdown menu options along with their icons are added below-->
                 <!-- From Device -->
                 <a href="#" class="from-device-option">
-                    <input type="file" id="file-upload" name="file-upload" style="display: none;">
+                    <input type="file" id="file-upload" name="file-upload" style="display: none;"> </input>
                     <button id="upload-button"><i class="fas fa-desktop"></i>
                         <p> From Device </p>
                     </button>
                 </a>
                 <!-- From Google Drive -->
                 <a href="#" class="google-drive-option">
-                    <i class="fab fa-google-drive"></i>
-                    <button id="drive-button"><i class="fab fa-google-drive"></i> Google drive</button>
+                    <input type="file" id="file-upload" name="file-upload" style="display: none;">
+                    <!-- <i class="fab fa-google-drive"></i> /*  -->
+                    <button id="drive-button"><i class="fab fa-google-drive"></i>
+                        <p> Google Drive </p>
+                    </button>
                 </a>
                 <!-- From Dropbox -->
                 <a href="#" class="drop-box-option">
-                    <i class="fab fa-dropbox"></i>
-                    Dropbox
+                    <input type="file" id="file-upload" name="file-upload" style="display: none;"> </input>
+                    <button id="dropbox-button"><i class="fas fa-dropbox"></i>
+                        <p> Dropbox </p>
+                    </button>
                 </a>
             </div>
         </div>
