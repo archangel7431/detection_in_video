@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/src/templates/home1.js"> </script>
+    <script src="/static/home1.js"> </script>
 
     <!-- Title of the website -->
     <title>MotionAlert</title>
@@ -137,36 +137,36 @@
 
 
     <script>
-        // function to appear dropdown menu when we click on Upload File//
-        document.querySelector('.dropbtn').addEventListener('click', function () {
-            var dropdownContent = document.querySelector('.dropdown-content');
-            var computedStyle = window.getComputedStyle(dropdownContent);
-            if (computedStyle.getPropertyValue('display') === 'none') {
-                dropdownContent.style.display = 'block';
-            } else {
-                dropdownContent.style.display = 'none';
-            }
-        });
+        // // function to appear dropdown menu when we click on Upload File//
+        // document.querySelector('.dropbtn').addEventListener('click', function () {
+        //     var dropdownContent = document.querySelector('.dropdown-content');
+        //     var computedStyle = window.getComputedStyle(dropdownContent);
+        //     if (computedStyle.getPropertyValue('display') === 'none') {
+        //         dropdownContent.style.display = 'block';
+        //     } else {
+        //         dropdownContent.style.display = 'none';
+        //     }
+        // });
 
 
         // Event listener for file upload from device
-        document.getElementById('upload-button').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.getElementById('file-upload').click();
-        });
+        // document.getElementById('upload-button').addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     document.getElementById('file-upload').click();
+        // });
 
-        document.getElementById('file-upload').addEventListener('change', function () {
-            var formData = new FormData();
-            formData.append('file', this.files[0]);
+        // document.getElementById('file-upload').addEventListener('change', function () {
+        //     var formData = new FormData();
+        //     formData.append('file', this.files[0]);
 
-            fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error(error));
-        });
+        //     fetch('/upload', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => console.log(data))
+        //         .catch(error => console.error(error));
+        // });
     </script>
 
 </body>

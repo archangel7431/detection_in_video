@@ -3,7 +3,7 @@
 // hide the dropdown content. 
 
 
-// NOTE $$$$$$$$$
+// $$$$$$$ NOTE $$$$$$$$$
 // need to make more flexible like other websites. but for now, this is enough.//
 //
 
@@ -20,7 +20,24 @@ window.onload = function () {
     dropdown.onmouseleave = function () {
         dropdownContent.style.display = 'none';
     };
+
+
+    // Event listener for file upload from device
+    document.getElementById('upload-button').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('file-upload').click();
+    });
+
+    document.getElementById("file-upload").addEventListener("change", function () {
+        var formData = new FormData();
+        formData.append("file", this.files[0]);
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+    });
 };
-
-
-

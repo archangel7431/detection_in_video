@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-
 import os
-import cv2
-import numpy as np
+
 
 app = Flask(__name__)
 CORS(app)
+
+UPLOAD_FOLDER = "src/res/database"
 
 
 @app.route("/")
@@ -17,24 +17,25 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload_file():
     if "file" not in request.files:
-        return jsonify({"message": "No file part in the request"}), 400
+        return "No file part", 400
 
     file = request.files["file"]
 
     if file.filename == "":
-        return jsonify({"message": "No file selected for uploading"}), 400
+        return "No selected file", 400
+
     if file:
-        filename = file.filename
-        file.save(os.path.join("uploads", filename))
-        return jsonify({"message": "file uploaded successfully"}), 200
+        filename = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filename)
+        return "File uploaded successfully", 200
 
 
-@app.route("/webcam")
-def webcam():
-    return render_template("webcam.html")
+# @app.route("/webcam")
+# def webcam():
+#     return render_template("webcam.html")
 
 
 if __name__ == "__main__":
-    if not os.path.exists("uploads"):
-        os.makedirs("uploads")
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     app.run("localhost", debug=True)
