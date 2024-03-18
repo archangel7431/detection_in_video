@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import os
 
+from final import motion_detection
+
 
 app = Flask(__name__)
 CORS(app)
@@ -28,6 +30,17 @@ def upload_file():
         filename = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filename)
         return "File uploaded successfully", 200
+
+
+@app.route("/set_roi", methods=["POST"])
+def set_roi():
+    data = request.get_json()
+    roi_wanted = False
+
+    if data["roi"]:
+        roi_wanted = True
+
+    return jsonify({"roi_wanted": roi_wanted}), 200
 
 
 # @app.route("/webcam")
