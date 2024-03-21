@@ -64,44 +64,62 @@ def motion_detection(client=None, filepath=None):
 
 
 def roi_and_getting_object(client=None, file_path=None, roi_wanted=True):
-    # Command line interface
-    if not client:
-        # ROI Not wanted
-        if not roi_wanted:
-            # Get VideoObject
-            args = preparation.argument_parser()
-            vs = preparation.reading_file(args=args)
-            coordinates = ()
+    # # Command line interface
+    # if not client:
+    #     # ROI Not wanted
+    #     if not roi_wanted:
+    #         # Get VideoObject
+    #         args = preparation.argument_parser()
+    #         vs = preparation.reading_file(args=args)
+    #         coordinates = ()
 
-        # ROI wanted
-        else:
-            print("Select a region of interest using mouse.")
+    #     # ROI wanted
+    #     else:
+    #         print("Select a region of interest using mouse.")
 
-            # Get coordinates of ROI
-            coordinates = tuple(coordinates_and_dimensions())
+    #         # Get coordinates of ROI
+    #         coordinates = tuple(coordinates_and_dimensions())
 
-            print("Region of interest selected.")
+    #         print("Region of interest selected.")
 
-            # Get VideoObject
-            args = preparation.argument_parser()
-            vs = preparation.reading_file(args=args)
+    #         # Get VideoObject
+    #         args = preparation.argument_parser()
+    #         vs = preparation.reading_file(args=args)
 
-    # folder path
-    else:
-        if not roi_wanted:
-            vs = preparation.reading_file(client=client, file_path=file_path)
-            coordinates = ()
+    # # folder path
+    # if not roi_wanted:
+    #     vs = preparation.reading_file(client=client, file_path=file_path)
+    #     coordinates = ()
 
-        else:
-            print("Select a region of interest using mouse.")
+    # else:
+    #     print("Select a region of interest using mouse.")
 
-            # Get coordinates of ROI
-            coordinates = tuple(coordinates_and_dimensions())
+    #     # Get coordinates of ROI
+    #     coordinates = tuple(coordinates_and_dimensions())
 
-            print("Region of interest selected.")
+    #     print("Region of interest selected.")
 
-            # Get VideoObject
-            vs = preparation.reading_file(client=client, file_path=file_path)
+    #     # Get VideoObject
+    #     vs = preparation.reading_file(client=client, file_path=file_path)
+
+    # return vs, coordinates
+
+    coordinates = ()
+
+    if roi_wanted:
+        print("Select a region of interest using mouse.")
+
+        # Get coordinates of ROI
+        coordinates = tuple(coordinates_and_dimensions())
+
+        print("Region of interest selected.")
+
+    # Get Video Object
+    if client:
+        vs = preparation.reading_file(client=client, file_path=file_path)
+
+    args = preparation.argument_parser()
+    vs = preparation.reading_file(args=args)
 
     return vs, coordinates
 

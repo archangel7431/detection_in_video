@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import os
 
@@ -41,6 +41,11 @@ def set_roi():
         roi_wanted = True
 
     return jsonify({"roi_wanted": roi_wanted}), 200
+
+
+@app.route("/processed_video/<filename>", methods=["POST"])
+def processed_video(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 # @app.route("/webcam")

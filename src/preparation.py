@@ -22,24 +22,25 @@ def reading_file(args=None, client=None, file_path=None):
     if client:
         if os.path.exists(file_path):
             vs = cv2.VideoCapture(file_path)
+            return vs
         else:
             print(
                 f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program."
             )
 
-    else:
-        # if the video argument is None, then we are reading from webcam
-        if args == "webcam":
-            vs = cv2.VideoCapture(0)
+    # if the video argument is None, then we are reading from webcam
+    if args == "webcam":
+        vs = cv2.VideoCapture(0)
 
-        # Otherwise, we are reading from a video file
-        else:
-            if os.path.exists(args):
-                vs = cv2.VideoCapture(args)
-            else:
-                print(
-                    f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program."
-                )
+        return vs
+
+    # Otherwise, we are reading from a video file
+    if os.path.exists(args):
+        vs = cv2.VideoCapture(args)
+    else:
+        print(
+            f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program."
+        )
 
     return vs
 
