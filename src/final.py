@@ -3,7 +3,7 @@ import preparation
 from roi_coordinates import coordinates_and_dimensions
 
 
-def motion_detection(client=None, filepath=None):
+def motion_detection(client, file_path_to_send=None):
     """
     This function is used to detect motion in a video file or from a webcam.
     It uses the MOG2 background subtraction algorithm to detect motion in the
@@ -18,7 +18,11 @@ def motion_detection(client=None, filepath=None):
     argument will be passed and command line will be turned off. If the
     function is called from the command line, the client argument will not be
     passed and the command line will be turned on.
+    client is a tuple containg the boolean value of whether the client is calling
+    and the file path of the video file. It is given None if the command line is calling.
     """
+
+    # Create the background subtractor object
     fgbg = cv2.createBackgroundSubtractorMOG2()
 
     # Getting ROI and getting video object
@@ -26,12 +30,21 @@ def motion_detection(client=None, filepath=None):
         input("If you don't want ROI, press ENTER. If you want ROI, write 'True': ")
     )
 
-    vs, coordinates = roi_and_getting_object(
-        client=client, file_path=filepath, roi_wanted=roi_wanted
-    )
+    write = False
+
+    if client[1] is not None and file_path_to_send is not None:
+        file_path = file_path_to_send
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        out = cv2.VideoWriter("output.mp4", fourcc, 20.0, (640, 480))
+        write = True
+
+    vs, coordinates = roi_and_getting_object(client, roi_wanted=roi_wanted)
 
     while True:
         _, frame = vs.read()
+        if frame is None:
+            print("Could not read frame from video")
+            return
         roi = preparation.getting_roi_ready(frame, roi_wanted, coordinates)
         fgmask = fgbg.apply(roi)
 
@@ -42,6 +55,10 @@ def motion_detection(client=None, filepath=None):
         min_area = 500
 
         preparation.contour(contours, min_area, roi=roi)
+
+        # Write the frame to the output video file
+        if write:
+            out.write(frame)
 
         # Show the resulting frame
         cv2.imshow("Motion Detection", frame)
@@ -59,51 +76,13 @@ def motion_detection(client=None, filepath=None):
 
     # Release the video capture and close windows
     vs.release()
+    if write:
+        out.release()
     cv2.destroyAllWindows()
     print("Completed, for now")
 
 
-def roi_and_getting_object(client=None, file_path=None, roi_wanted=True):
-    # # Command line interface
-    # if not client:
-    #     # ROI Not wanted
-    #     if not roi_wanted:
-    #         # Get VideoObject
-    #         args = preparation.argument_parser()
-    #         vs = preparation.reading_file(args=args)
-    #         coordinates = ()
-
-    #     # ROI wanted
-    #     else:
-    #         print("Select a region of interest using mouse.")
-
-    #         # Get coordinates of ROI
-    #         coordinates = tuple(coordinates_and_dimensions())
-
-    #         print("Region of interest selected.")
-
-    #         # Get VideoObject
-    #         args = preparation.argument_parser()
-    #         vs = preparation.reading_file(args=args)
-
-    # # folder path
-    # if not roi_wanted:
-    #     vs = preparation.reading_file(client=client, file_path=file_path)
-    #     coordinates = ()
-
-    # else:
-    #     print("Select a region of interest using mouse.")
-
-    #     # Get coordinates of ROI
-    #     coordinates = tuple(coordinates_and_dimensions())
-
-    #     print("Region of interest selected.")
-
-    #     # Get VideoObject
-    #     vs = preparation.reading_file(client=client, file_path=file_path)
-
-    # return vs, coordinates
-
+def roi_and_getting_object(client, roi_wanted=True):
     coordinates = ()
 
     if roi_wanted:
@@ -115,14 +94,11 @@ def roi_and_getting_object(client=None, file_path=None, roi_wanted=True):
         print("Region of interest selected.")
 
     # Get Video Object
-    if client:
-        vs = preparation.reading_file(client=client, file_path=file_path)
-
-    args = preparation.argument_parser()
-    vs = preparation.reading_file(args=args)
+    vs = preparation.reading_file(client)
 
     return vs, coordinates
 
 
 if __name__ == "__main__":
-    motion_detection()
+
+    motion_detection((True, "src/res/video_1.mp4"), ".")

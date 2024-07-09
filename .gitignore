@@ -1,3 +1,9 @@
-src/res
-src/__pycache__
-.vscode
+# Python related
+src/__pycache__/
+
+
+# VS Code related
+.vscode/
+
+# Project related
+src/res/
