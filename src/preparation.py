@@ -5,57 +5,39 @@ import cv2
 import numpy as np
 
 
-def argument_parser():
-    """
-    Returns the mode argument from the command line.
-    """
-    # Construct the argument parser and parse the arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "mode",
-        help=f"Type 'webcam' for webcam or if the source is a video file, write its path. Current directory is {os.path.abspath(__file__)}.",
-    )
-    args = parser.parse_args()
-
-    return args.mode
-
-
 # Reading file/ webcam
-def reading_file(client):
+def reading_file(source: str) -> cv2.VideoCapture:
     """
     Reads the video file or webcam.
+
     Args:
-    client: tuple - contains whether we require command line interface or client interface
-                    and the file path (file path is None if command line interface is required).
+    source: str - The source of the video.
 
     Returns:
-    vs: cv2.VideoCapture - The video object."""
+    vs: cv2.VideoCapture - The video object.
+    """
 
-    file_path = client[1]
-    if client[0] and os.path.exists(file_path):
-        vs = cv2.VideoCapture(file_path)
-        return vs
-
-    # client[0] is False, which means command line interface is required
-    elif not client[0]:
-        args = argument_parser()
-
-        # if the video argument is None, then we are reading from webcam
-        if args == "webcam":
+    # Check if the source is a webcam or a file. If not, print an error message.
+    if source == "webcam":
+        try:
             vs = cv2.VideoCapture(0)
+        except cv2.error:
+            print("Webcam not found. Please check the connection.")
+    elif os.path.exists(source):
+        try:
+            vs = cv2.VideoCapture(source)
+        except cv2.error:
+            print("Enter a valid path.")
+            print(f"This program is running from {os.path.abspath(__file__)}.")
+    else:
+        print("Enter a valid path on this computer or 'webcam'.")
 
-        # Otherwise, we are reading from a video file
-        if os.path.exists(args):
-            vs = cv2.VideoCapture(args)
-        else:
-            print(
-                f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program."
-            )
-
-        return vs
+    return vs
 
 
-def getting_roi_ready(frame, roi_wanted, coordinates):
+def getting_roi_ready(
+    frame: np.ndarray, roi_wanted: bool, coordinates: tuple
+) -> np.ndarray:
     """
     Returns the region of interest (ROI) from the frame.
 
@@ -86,7 +68,7 @@ def getting_roi_ready(frame, roi_wanted, coordinates):
     return roi
 
 
-def finding_contour(fgmask, thresh):
+def finding_contour(fgmask: np.ndarray, thresh: int) -> list:
     """
     Returns the contours of the thresholded image.
     Args:
@@ -111,7 +93,7 @@ def finding_contour(fgmask, thresh):
     return contours
 
 
-def contour(contours, min_area, roi):
+def contour(contours: list, min_area: int, roi: np.ndarray) -> None:
     """
     Draws a bounding box around the region of motion.
     Args:
@@ -140,16 +122,16 @@ def sound_alarm():
     import pygame
 
     pygame.mixer.init()
-    if os.path.exists(tone_path):
+    try:
         pygame.mixer.music.load(tone_path)
-    else:
-        print(
-            f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}."
-        )
-    pygame.mixer.music.load(tone_path)
+    except pygame.error:
+        print(f"Enter a valid path.")
+
     pygame.mixer.music.set_volume(50.0)
     pygame.mixer.music.play()
 
 
 if __name__ == "__main__":
-    sound_alarm()
+    source = "src/res/video_1.mp4"
+    vs = reading_file(source)
+    print(vs)

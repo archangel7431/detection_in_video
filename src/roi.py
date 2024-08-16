@@ -2,9 +2,8 @@ import cv2
 import argparse
 import os
 
+
 # Callback function for mouse events
-
-
 def select_roi(event, x, y, flags, param):
     global roi_top_left, roi_bottom_right, roi_selected
 
@@ -15,18 +14,6 @@ def select_roi(event, x, y, flags, param):
     elif event == cv2.EVENT_LBUTTONUP:
         roi_bottom_right = (x, y)
         roi_selected = True
-
-
-def argument_parser():
-    # Construct the argument parser and parse the arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "mode",
-        help="Type 'webcam' for webcam or if the source is a video file, write its path.",
-    )
-    args = parser.parse_args()
-
-    return args.mode
 
 
 def get_roi(vs):
@@ -72,43 +59,34 @@ def get_roi(vs):
     return [roi_top_left, roi_bottom_right]
 
 
-def roi(client):
+def roi(source: str) -> list:
     """
     Returns the region of interest (ROI) selected by the user.
     Args:
-    client: tuple - contains whether we require command line interface or client interface
-                    and the file path (file path is None if command line interface is required).
+    source: str - The source of the video.
 
     Returns:
     list - The top left and bottom right coordinates of the ROI.
     """
 
-    filepath = client[1]
-
-    # If client[0] is True and the file path exists, then we are reading
-    # from a video file in the system and we are getting the ROI from the
-    # video file.
-    if client[0] and os.path.exists(filepath):
-        vs = cv2.VideoCapture(filepath)
-        return get_roi(vs)
-
-    # If client[0] is False, then we are using command line interface.
-    elif not client[0]:
-        args = argument_parser()
-
-        # If the video argument is None, then we are reading from webcam
-        if args == "webcam":
+    # Check if the source is a valid path or webcam. If not, print an error message.
+    if os.path.exists(source):
+        try:
+            vs = cv2.VideoCapture(source)
+        except cv2.error:
+            print("Enter a valid path.")
+            print(f"This program is running from {os.path.abspath(__file__)}.")
+    elif source == "webcam":
+        try:
             vs = cv2.VideoCapture(0)
+        except cv2.error:
+            print("Webcam not found. Please connect a webcam and try again.")
+    else:
+        print("Enter a valid path or 'webcam'.")
 
-        # Otherwise, we are reading from a video file
-        if os.path.exists(args):
-            vs = cv2.VideoCapture(args)
-        else:
-            print(
-                f"Enter a valid path on this computer. This program is running from {os.path.abspath(__file__)}. Try writing a path relative to the program."
-            )
-        return get_roi(vs)
+    return get_roi(vs)
 
 
 if __name__ == "__main__":
-    print(roi((True, "src/res/video_1.mp4")))
+    source = "./src/res/video_1.mp4"
+    roi(source)
