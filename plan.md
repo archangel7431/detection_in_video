@@ -28,3 +28,11 @@ This should be able to handle files also. If wrong file is given, it will point 
 Other parameters are not fully tested.
 
 ## Test the above functionalities
+
+
+
+
+## Comments
+The ROI drawn is dependent on the point in which it clicks. It calculates the distances and draws the rectangle to the right and downward.
+
+Although I tried correcting it and has succeeded in correcting the direction, the box now gets bigger than I draw. Need to correct this.

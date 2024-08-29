@@ -1,9 +1,7 @@
 import cv2
-import os
 import argparse
 
 import preparation
-from roi_coordinates import coordinates_and_dimensions
 
 
 def motion_detection(
@@ -159,7 +157,7 @@ def roi_and_getting_object(source: str, roi_wanted: bool = False) -> tuple:
         print("Select a region of interest using mouse.")
 
         # Get coordinates of ROI
-        coordinates = tuple(coordinates_and_dimensions(source))
+        coordinates = tuple(preparation.get_roi_coordinates(source))
 
         print("Region of interest selected.")
 
@@ -170,4 +168,4 @@ def roi_and_getting_object(source: str, roi_wanted: bool = False) -> tuple:
 
 
 if __name__ == "__main__":
-    motion_detection("webcam", roi_wanted=True)
+    cli_main()
