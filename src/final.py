@@ -1,9 +1,11 @@
 import cv2
+import os
 import argparse
 
 import preparation
 
 
+# Main Function -- Motion Detection
 def motion_detection(
     source: str,
     roi_wanted: bool = False,
@@ -36,12 +38,17 @@ def motion_detection(
 
     vs, coordinates = roi_and_getting_object(source, roi_wanted=roi_wanted)
 
+    # Get frame width and height from the video capture object
+    frame_width = int(vs.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(vs.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
     # If the user wants to write the output to a video file
     if write:
         try:
             fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+            output_file_path = os.path.join(file_path_to_send, "output.mp4")
             out = cv2.VideoWriter(
-                file_path_to_send + "output.mp4", fourcc, 20.0, (640, 480)
+                output_file_path, fourcc, 20.0, (frame_width, frame_height)
             )
         except Exception as e:
             print(f"Error: {e}")
@@ -100,6 +107,7 @@ def motion_detection(
     return out
 
 
+# CLI Function to call the motion_detection function
 def cli_main() -> motion_detection:
     """
     This function is used to parse the command line arguments and call the motion_detection function.
@@ -124,19 +132,29 @@ def cli_main() -> motion_detection:
     parser.add_argument(
         "--file_path_to_send",
         type=str,
-        default=None,
         help="File path to save the output video",
     )
 
     args = parser.parse_args()
+
+    # Check for None values before using the arguments
+    source = args.source
+    roi_wanted = args.roi_wanted
+    write = args.write
+    file_path_to_send = args.file_path_to_send
+
+    if file_path_to_send is None:
+        file_path_to_send = "."  # Default value
+
     return motion_detection(
-        source=args.source,
-        roi_wanted=args.roi_wanted,
-        write=args.write,
-        file_path_to_send=args.file_path_to_send,
+        source=source,
+        roi_wanted=roi_wanted,
+        write=write,
+        file_path_to_send=file_path_to_send,
     )
 
 
+# Helper Function to get the video object and ROI coordinates for motion detection
 def roi_and_getting_object(source: str, roi_wanted: bool = False) -> tuple:
     """
     This function is used to select a region of interest (ROI) and get the video object.
