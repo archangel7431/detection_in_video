@@ -84,6 +84,7 @@ def motion_detection(
             out.write(frame)
 
         # Show the resulting frame
+        cv2.namedWindow("Motion Detection", cv2.WINDOW_NORMAL)
         cv2.imshow("Motion Detection", frame)
 
         # Break the loop on 'q' key press or if the window was closed

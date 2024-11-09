@@ -1,9 +1,9 @@
 # Python related
 src/__pycache__/
 
-
 # VS Code related
 .vscode/
 
 # Project related
 src/res/
+output.mp4

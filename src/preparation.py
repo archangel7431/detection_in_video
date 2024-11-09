@@ -96,7 +96,7 @@ def get_roi_coordinates(source: str) -> tuple:
     drawing = False  # Flag to check if drawing has started
 
     # Create a window and bind the mouse callback function
-    cv2.namedWindow("Select ROI")
+    cv2.namedWindow("Select ROI", cv2.WINDOW_NORMAL)
     cv2.setMouseCallback("Select ROI", draw_rectangle)
 
     # Read the video file or webcam
